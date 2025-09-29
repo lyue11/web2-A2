@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>慈善活动平台 - 首页</title>
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+    <!-- 导航菜单 -->
+    <nav class="navbar">
+        <div class="nav-container">
+            <h1 class="nav-logo">慈善活动平台</h1>
+            <ul class="nav-menu">
+                <li><a href="index.html" class="nav-link active">首页</a></li>
+                <li><a href="search.html" class="nav-link">搜索活动</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <!-- 主要内容区域 -->
+    <main class="main-content">
+        <!-- 组织介绍部分 -->
+        <section class="hero-section">
+            <div class="container">
+                <h2>欢迎来到希望之光慈善基金会</h2>
+                <p class="mission-statement">我们致力于为每个孩子创造更美好的明天，通过各类慈善活动筹集资金，支持儿童教育、医疗和环境保护项目。</p>
+                <div class="contact-info">
+                    <p>📧 contact@hopelight.org | 📞 +61 2 1234 5678</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- 活动列表部分 -->
+        <section class="events-section">
+            <div class="container">
+                <h2>近期慈善活动</h2>
+                <div id="events-loading" class="loading">加载中...</div>
+                <div id="events-container" class="events-grid"></div>
+                <div id="events-error" class="error-message" style="display: none;"></div>
+            </div>
+        </section>
+    </main>
+
+    <script src="js/main.js"></script>
+    <script src="js/home.js"></script>
+</body>
+</html>
