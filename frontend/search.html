@@ -1,0 +1,353 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>搜索活动 - 慈善活动平台</title>
+    <link rel="stylesheet" href="css/style.css">
+    <style>
+        /* 搜索页面专用样式 */
+        .search-hero {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 3rem 2rem;
+            border-radius: 10px;
+            margin-bottom: 2rem;
+            text-align: center;
+        }
+        
+        .search-hero h1 {
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+        }
+        
+        .search-hero p {
+            font-size: 1.2rem;
+            opacity: 0.9;
+            margin-bottom: 2rem;
+        }
+        
+        .search-container {
+            background: white;
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+            padding: 2rem;
+            margin-bottom: 2rem;
+        }
+        
+        .search-tabs {
+            display: flex;
+            margin-bottom: 1.5rem;
+            border-bottom: 2px solid #f0f0f0;
+        }
+        
+        .search-tab {
+            padding: 0.8rem 1.5rem;
+            background: none;
+            border: none;
+            font-size: 1rem;
+            cursor: pointer;
+            transition: all 0.3s;
+            position: relative;
+        }
+        
+        .search-tab.active {
+            color: #667eea;
+            font-weight: bold;
+        }
+        
+        .search-tab.active::after {
+            content: '';
+            position: absolute;
+            bottom: -2px;
+            left: 0;
+            width: 100%;
+            height: 3px;
+            background: #667eea;
+            border-radius: 3px;
+        }
+        
+        .search-content {
+            display: none;
+        }
+        
+        .search-content.active {
+            display: block;
+        }
+        
+        .keyword-search {
+            display: flex;
+            gap: 1rem;
+            align-items: center;
+        }
+        
+        .search-input-group {
+            position: relative;
+            flex: 1;
+        }
+        
+        .search-icon {
+            position: absolute;
+            left: 1rem;
+            top: 50%;
+            transform: translateY(-50%);
+            color: #666;
+            font-size: 1.2rem;
+        }
+        
+        .search-input {
+            padding: 0.8rem 1rem 0.8rem 3rem;
+            width: 100%;
+            border: 2px solid #e0e0e0;
+            border-radius: 8px;
+            font-size: 1rem;
+            transition: border-color 0.3s;
+        }
+        
+        .search-input:focus {
+            outline: none;
+            border-color: #667eea;
+            box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);
+        }
+        
+        .search-btn {
+            background: #667eea;
+            color: white;
+            border: none;
+            padding: 0.8rem 1.5rem;
+            border-radius: 8px;
+            font-size: 1rem;
+            cursor: pointer;
+            transition: background-color 0.3s;
+            white-space: nowrap;
+        }
+        
+        .search-btn:hover {
+            background: #5a6fd8;
+        }
+        
+        .advanced-search-form {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 1rem;
+            align-items: end;
+        }
+        
+        .form-group {
+            display: flex;
+            flex-direction: column;
+        }
+        
+        .form-group label {
+            margin-bottom: 0.5rem;
+            font-weight: 600;
+            color: #333;
+        }
+        
+        .form-group input, .form-group select {
+            padding: 0.8rem;
+            border: 2px solid #e0e0e0;
+            border-radius: 8px;
+            font-size: 1rem;
+            transition: border-color 0.3s;
+        }
+        
+        .form-group input:focus, .form-group select:focus {
+            outline: none;
+            border-color: #667eea;
+            box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);
+        }
+        
+        .quick-actions {
+            display: flex;
+            gap: 1rem;
+            margin-top: 1.5rem;
+            flex-wrap: wrap;
+        }
+        
+        .action-btn {
+            background: #f8f9fa;
+            color: #333;
+            border: 2px solid #e0e0e0;
+            padding: 0.7rem 1.2rem;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: all 0.3s;
+            font-size: 0.9rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+        
+        .action-btn:hover {
+            background: #667eea;
+            color: white;
+            border-color: #667eea;
+        }
+        
+        .search-stats {
+            margin-top: 1rem;
+            color: #666;
+            font-size: 0.9rem;
+            text-align: center;
+        }
+        
+        .results-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 1.5rem;
+        }
+        
+        .results-count {
+            color: #666;
+            font-size: 1rem;
+        }
+        
+        /* 响应式设计 */
+        @media (max-width: 768px) {
+            .search-tabs {
+                flex-direction: column;
+            }
+            
+            .keyword-search {
+                flex-direction: column;
+            }
+            
+            .advanced-search-form {
+                grid-template-columns: 1fr;
+            }
+            
+            .quick-actions {
+                flex-direction: column;
+            }
+            
+            .action-btn {
+                justify-content: center;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- 导航菜单 -->
+    <nav class="navbar">
+        <div class="nav-container">
+            <h1 class="nav-logo">慈善活动平台</h1>
+            <ul class="nav-menu">
+                <li><a href="index.html" class="nav-link">首页</a></li>
+                <li><a href="search.html" class="nav-link active">搜索活动</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <!-- 主要内容区域 -->
+    <main class="main-content">
+        <!-- 搜索引导区域 -->
+        <section class="search-hero">
+            <div class="container">
+                <h1>发现慈善活动</h1>
+                <p>找到您感兴趣的慈善活动，为美好事业贡献力量</p>
+            </div>
+        </section>
+
+        <!-- 搜索功能区域 -->
+        <section class="search-container">
+            <div class="container">
+                <!-- 搜索标签 -->
+                <div class="search-tabs">
+                    <button class="search-tab active" data-tab="keyword">关键词搜索</button>
+                    <button class="search-tab" data-tab="advanced">高级筛选</button>
+                </div>
+                
+                <!-- 关键词搜索 -->
+                <div id="keyword-search" class="search-content active">
+                    <form id="keyword-search-form" class="keyword-search">
+                        <div class="search-input-group">
+                            <span class="search-icon">🔍</span>
+                            <input type="text" id="keyword" name="keyword" 
+                                   placeholder="搜索活动名称、描述或类别..." 
+                                   class="search-input">
+                        </div>
+                        <button type="submit" class="search-btn">搜索</button>
+                    </form>
+                </div>
+                
+                <!-- 高级搜索 -->
+                <div id="advanced-search" class="search-content">
+                    <form id="search-form" class="advanced-search-form">
+                        <div class="form-group">
+                            <label for="category">活动类别</label>
+                            <select id="category" name="category">
+                                <option value="">所有类别</option>
+                                <!-- 分类选项将通过JavaScript动态加载 -->
+                            </select>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="location">地点</label>
+                            <input type="text" id="location" name="location" placeholder="输入城市或地点">
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="date">日期</label>
+                            <input type="date" id="date" name="date">
+                        </div>
+                        
+                        <div class="form-group">
+                            <button type="submit" class="search-btn">筛选</button>
+                        </div>
+                    </form>
+                </div>
+                
+                <!-- 快速操作按钮 -->
+                <div class="quick-actions">
+                    <button type="button" id="show-upcoming-btn" class="action-btn">
+                        <span>📅</span> 未发生活动
+                    </button>
+                    <button type="button" id="show-all-btn" class="action-btn">
+                        <span>🌟</span> 所有活动
+                    </button>
+                    <button type="button" id="clear-btn" class="action-btn">
+                        <span>🔄</span> 重置搜索
+                    </button>
+                </div>
+                
+                <!-- 搜索统计 -->
+                <div class="search-stats">
+                    <span id="search-stats-text">准备搜索...</span>
+                </div>
+            </div>
+        </section>
+
+        <!-- 搜索结果区域 -->
+        <section class="results-section">
+            <div class="container">
+                <div class="results-header">
+                    <h2>搜索结果</h2>
+                    <div class="results-count" id="results-count"></div>
+                </div>
+                
+                <div id="search-loading" class="loading" style="display: none;">
+                    <div style="display: flex; align-items: center; justify-content: center; gap: 1rem;">
+                        <div style="width: 20px; height: 20px; border: 2px solid #f3f3f3; border-top: 2px solid #667eea; border-radius: 50%; animation: spin 1s linear infinite;"></div>
+                        搜索中...
+                    </div>
+                </div>
+                
+                <div id="search-results" class="events-grid"></div>
+                
+                <div id="search-error" class="error-message" style="display: none;"></div>
+                
+                <div id="no-results" class="error-message" style="display: none; text-align: center; padding: 3rem;">
+                    <div style="font-size: 4rem; margin-bottom: 1rem;">🔍</div>
+                    <h3>没有找到匹配的活动</h3>
+                    <p>请尝试调整搜索条件或使用不同的关键词</p>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <script src="js/main.js"></script>
+    <script src="js/search.js"></script>
+</body>
+</html>
