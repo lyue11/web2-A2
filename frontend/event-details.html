@@ -1,0 +1,206 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>活动详情 - 慈善活动平台</title>
+    <link rel="stylesheet" href="css/style.css">
+    <style>
+        /* 详情页特定样式 */
+        .event-detail-container {
+            background: white;
+            border-radius: 10px;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+            overflow: hidden;
+            margin-bottom: 2rem;
+        }
+        
+        .event-hero-image {
+            width: 100%;
+            height: 400px;
+            object-fit: cover;
+        }
+        
+        .event-detail-content {
+            padding: 2rem;
+        }
+        
+        .event-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            margin-bottom: 2rem;
+            flex-wrap: wrap;
+            gap: 1rem;
+        }
+        
+        .event-title {
+            font-size: 2.5rem;
+            color: #2c3e50;
+            margin-bottom: 0.5rem;
+        }
+        
+        .event-meta-details {
+            display: flex;
+            flex-direction: column;
+            gap: 0.5rem;
+            background: #f8f9fa;
+            padding: 1.5rem;
+            border-radius: 8px;
+            min-width: 300px;
+        }
+        
+        .meta-item {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            margin-bottom: 0.5rem;
+        }
+        
+        .fundraising-section {
+            background: #e8f4fd;
+            padding: 1.5rem;
+            border-radius: 8px;
+            margin: 2rem 0;
+        }
+        
+        .progress-bar {
+            background: #ddd;
+            border-radius: 10px;
+            height: 20px;
+            margin: 1rem 0;
+            overflow: hidden;
+        }
+        
+        .progress-fill {
+            background: #27ae60;
+            height: 100%;
+            transition: width 0.3s ease;
+        }
+        
+        .progress-text {
+            display: flex;
+            justify-content: space-between;
+            font-weight: bold;
+        }
+        
+        .register-section {
+            text-align: center;
+            margin: 2rem 0;
+        }
+        
+        .register-btn {
+            background: #e74c3c;
+            color: white;
+            border: none;
+            padding: 1rem 2rem;
+            font-size: 1.2rem;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+        
+        .register-btn:hover {
+            background: #c0392b;
+        }
+        
+        .full-description {
+            line-height: 1.8;
+            margin: 2rem 0;
+        }
+        
+        .back-link {
+            display: inline-block;
+            margin-bottom: 1rem;
+            color: #3498db;
+            text-decoration: none;
+        }
+        
+        .back-link:hover {
+            text-decoration: underline;
+        }
+    </style>
+</head>
+<body>
+    <!-- 导航菜单 -->
+    <nav class="navbar">
+        <div class="nav-container">
+            <h1 class="nav-logo">慈善活动平台</h1>
+            <ul class="nav-menu">
+                <li><a href="index.html" class="nav-link">首页</a></li>
+                <li><a href="search.html" class="nav-link">搜索活动</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <!-- 主要内容区域 -->
+    <main class="main-content">
+        <a href="javascript:history.back()" class="back-link">← 返回</a>
+        
+        <div id="event-loading" class="loading">加载活动详情...</div>
+        
+        <div id="event-error" class="error-message" style="display: none;"></div>
+        
+        <div id="event-detail-container" class="event-detail-container" style="display: none;">
+            <img id="event-hero-image" src="" alt="活动图片" class="event-hero-image">
+            
+            <div class="event-detail-content">
+                <div class="event-header">
+                    <div>
+                        <h1 id="event-title" class="event-title"></h1>
+                        <div id="event-category" class="event-category" style="display: inline-block;"></div>
+                    </div>
+                    
+                    <div class="event-meta-details">
+                        <div class="meta-item">
+                            <span>📅</span>
+                            <span id="event-date"></span>
+                        </div>
+                        <div class="meta-item">
+                            <span>⏰</span>
+                            <span id="event-time"></span>
+                        </div>
+                        <div class="meta-item">
+                            <span>📍</span>
+                            <span id="event-location"></span>
+                        </div>
+                        <div class="meta-item">
+                            <span>🏢</span>
+                            <span id="event-organisation"></span>
+                        </div>
+                        <div class="meta-item">
+                            <span>💰</span>
+                            <span id="event-price"></span>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="fundraising-section">
+                    <h3>筹款进度</h3>
+                    <div class="progress-bar">
+                        <div id="progress-fill" class="progress-fill"></div>
+                    </div>
+                    <div class="progress-text">
+                        <span>已筹集: $<span id="current-amount">0</span></span>
+                        <span>目标: $<span id="fundraising-goal">0</span></span>
+                    </div>
+                    <div id="progress-percentage" style="text-align: center; font-weight: bold; margin-top: 0.5rem;"></div>
+                </div>
+                
+                <div class="full-description">
+                    <h3>活动详情</h3>
+                    <p id="event-full-description"></p>
+                    <p id="event-venue-details" style="margin-top: 1rem;"></p>
+                </div>
+                
+                <div class="register-section">
+                    <button id="register-btn" class="register-btn">立即报名参加</button>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <script src="js/main.js"></script>
+    <script src="js/event-details.js"></script>
+</body>
+</html>
