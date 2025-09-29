@@ -36,3 +36,9 @@ function formatDate(dateString) {
 function goToEventDetails(eventId) {
     window.location.href = `event-details.html?id=${eventId}`;
 }
+
+// 获取URL参数
+function getUrlParameter(name) {
+    const urlParams = new URLSearchParams(window.location.search);
+    return urlParams.get(name);
+}
