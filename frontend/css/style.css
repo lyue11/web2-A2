@@ -82,34 +82,252 @@ body {
     width: 100%;
 }
 
-/* 英雄区域 */
+/* 英雄区域样式 - 带背景图片版本 */
 .hero-section {
-    background: linear-gradient(135deg, #3498db, #8e44ad);
+    position: relative;
     color: white;
-    padding: 3rem 2rem;
-    border-radius: 10px;
+    padding: 4rem 2rem;
     margin-bottom: 2rem;
-    text-align: center;
+    border-radius: 15px;
+    overflow: hidden;
+    min-height: 500px;
+    display: flex;
+    align-items: center;
+}
+
+.hero-background {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: 
+        linear-gradient(90deg, rgba(44, 62, 80, 0.9) 0%, rgba(44, 62, 80, 0.7) 50%, rgba(44, 62, 80, 0.3) 100%),
+        url('../images/hero-background.jpg') no-repeat center right;
+    background-size: cover;
+    z-index: -1;
+}
+
+.hero-content {
+    max-width: 600px;
+    position: relative;
+    z-index: 2;
 }
 
 .hero-section h2 {
-    font-size: 2.5rem;
-    margin-bottom: 1rem;
+    font-size: 3rem;
+    margin-bottom: 1.5rem;
+    line-height: 1.2;
+    text-shadow: 2px 2px 4px rgba(0,0,0,0.5);
 }
 
 .mission-statement {
-    font-size: 1.2rem;
-    margin-bottom: 1.5rem;
-    max-width: 800px;
-    margin-left: auto;
-    margin-right: auto;
+    font-size: 1.3rem;
+    margin-bottom: 2.5rem;
+    line-height: 1.6;
+    text-shadow: 1px 1px 2px rgba(0,0,0,0.5);
+}
+
+.hero-stats {
+    display: flex;
+    gap: 2rem;
+    margin-bottom: 2rem;
+    flex-wrap: wrap;
+}
+
+.stat-item {
+    text-align: center;
+    background: rgba(255, 255, 255, 0.2);
+    padding: 1rem 1.5rem;
+    border-radius: 10px;
+    backdrop-filter: blur(10px);
+    border: 1px solid rgba(255, 255, 255, 0.3);
+}
+
+.stat-number {
+    display: block;
+    font-size: 2rem;
+    font-weight: bold;
+    margin-bottom: 0.5rem;
+    text-shadow: 1px 1px 2px rgba(0,0,0,0.5);
+}
+
+.stat-label {
+    font-size: 0.9rem;
+    opacity: 0.9;
 }
 
 .contact-info {
     font-size: 1.1rem;
+    background: rgba(255, 255, 255, 0.2);
+    padding: 1rem 1.5rem;
+    border-radius: 10px;
+    backdrop-filter: blur(10px);
+    border: 1px solid rgba(255, 255, 255, 0.3);
+    display: inline-block;
+}
+
+/* 慈善组织展示样式 */
+.organizations-section {
+    background: white;
+    padding: 3rem 2rem;
+    border-radius: 15px;
+    box-shadow: 0 5px 20px rgba(0,0,0,0.1);
+    margin-bottom: 3rem;
+}
+
+.organizations-section h2 {
+    text-align: center;
+    font-size: 2.2rem;
+    color: #2c3e50;
+    margin-bottom: 1rem;
+}
+
+.section-description {
+    text-align: center;
+    font-size: 1.1rem;
+    color: #666;
+    margin-bottom: 2.5rem;
+    max-width: 600px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.organizations-container {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+    gap: 2rem;
+    margin-bottom: 2rem;
+}
+
+.organization-card {
+    background: #f8f9fa;
+    border-radius: 12px;
+    padding: 1.8rem;
+    border: 1px solid #e9ecef;
+    transition: all 0.3s ease;
+    position: relative;
+    overflow: hidden;
+}
+
+.organization-card::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 4px;
+    height: 100%;
+    background: linear-gradient(135deg, #667eea, #764ba2);
+    transition: width 0.3s ease;
+}
+
+.organization-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 10px 30px rgba(0,0,0,0.15);
+    background: white;
+}
+
+.organization-card:hover::before {
+    width: 6px;
+}
+
+.org-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    margin-bottom: 1.2rem;
+    flex-wrap: wrap;
+    gap: 0.8rem;
+}
+
+.org-header h3 {
+    font-size: 1.3rem;
+    color: #2c3e50;
+    margin: 0;
+    flex: 1;
+    min-width: 200px;
+}
+
+.badge {
+    background: #95a5a6;
+    color: white;
+    padding: 0.4rem 0.8rem;
+    border-radius: 20px;
+    font-size: 0.8rem;
+    font-weight: bold;
+    white-space: nowrap;
+}
+
+.badge.public-fundraising {
+    background: linear-gradient(135deg, #27ae60, #2ecc71);
+}
+
+.org-details {
+    margin-bottom: 1.2rem;
+}
+
+.org-info {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0.5rem 0;
+    border-bottom: 1px solid #e9ecef;
+}
+
+.org-info:last-child {
+    border-bottom: none;
+}
+
+.org-info .label {
+    font-weight: 600;
+    color: #555;
+    font-size: 0.9rem;
+}
+
+.org-info .value {
+    color: #2c3e50;
+    font-size: 0.9rem;
+    text-align: right;
+    flex: 1;
+    margin-left: 1rem;
+}
+
+.org-description {
+    color: #666;
+    font-style: italic;
+    line-height: 1.5;
+    padding-top: 1rem;
+    border-top: 1px dashed #dee2e6;
+    font-size: 0.95rem;
+}
+
+.organizations-footer {
+    text-align: center;
+    padding-top: 1.5rem;
+    border-top: 2px solid #f1f2f6;
+}
+
+.organizations-footer p {
+    color: #7f8c8d;
+    font-size: 0.9rem;
+    margin: 0;
 }
 
 /* 活动网格 */
+.events-section {
+    background: white;
+    padding: 3rem 2rem;
+    border-radius: 15px;
+    box-shadow: 0 5px 20px rgba(0,0,0,0.1);
+}
+
+.events-section h2 {
+    text-align: center;
+    font-size: 2.2rem;
+    color: #2c3e50;
+    margin-bottom: 1rem;
+}
+
 .events-grid {
     display: grid;
     grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
@@ -123,6 +341,7 @@ body {
     box-shadow: 0 4px 6px rgba(0,0,0,0.1);
     overflow: hidden;
     transition: transform 0.3s, box-shadow 0.3s;
+    border: 1px solid #e9ecef;
 }
 
 .event-card:hover {
@@ -165,6 +384,7 @@ body {
 .event-description {
     margin-bottom: 1rem;
     color: #555;
+    line-height: 1.5;
 }
 
 .event-details-link {
@@ -175,6 +395,8 @@ body {
     text-decoration: none;
     border-radius: 5px;
     transition: background-color 0.3s;
+    text-align: center;
+    width: 100%;
 }
 
 .event-details-link:hover {
@@ -527,6 +749,73 @@ body {
         width: 28px;
     }
 
+    .hero-section {
+        padding: 3rem 1rem;
+        min-height: 400px;
+        text-align: center;
+    }
+    
+    .hero-section h2 {
+        font-size: 2.2rem;
+    }
+    
+    .mission-statement {
+        font-size: 1.1rem;
+    }
+    
+    .hero-stats {
+        justify-content: center;
+        gap: 1rem;
+    }
+    
+    .stat-item {
+        padding: 0.8rem 1rem;
+        min-width: 100px;
+    }
+    
+    .stat-number {
+        font-size: 1.5rem;
+    }
+    
+    .hero-background {
+        background: 
+            linear-gradient(rgba(44, 62, 80, 0.8), rgba(44, 62, 80, 0.8)),
+            url('../images/hero-background.jpg') no-repeat center center;
+        background-size: cover;
+    }
+    
+    .hero-content {
+        max-width: 100%;
+    }
+
+    .organizations-section {
+        padding: 2rem 1rem;
+    }
+    
+    .organizations-container {
+        grid-template-columns: 1fr;
+    }
+    
+    .org-header {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+    
+    .org-header h3 {
+        min-width: auto;
+    }
+    
+    .org-info {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+    
+    .org-info .value {
+        margin-left: 0;
+        margin-top: 0.2rem;
+        text-align: left;
+    }
+
     .search-tabs {
         flex-direction: column;
     }
@@ -547,10 +836,6 @@ body {
         justify-content: center;
     }
     
-    .search-form {
-        grid-template-columns: 1fr;
-    }
-    
     .events-grid {
         grid-template-columns: 1fr;
     }
@@ -565,6 +850,17 @@ body {
     
     .event-meta-details {
         min-width: 100%;
+    }
+}
+
+@media (max-width: 480px) {
+    .hero-stats {
+        flex-direction: column;
+        align-items: center;
+    }
+    
+    .stat-item {
+        width: 150px;
     }
 }
 

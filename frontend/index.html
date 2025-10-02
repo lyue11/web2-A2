@@ -10,8 +10,6 @@
     <link rel="icon" type="image/x-icon" href="images/favicon.ico">
     <link rel="icon" type="image/png" sizes="32x32" href="images/favicon-32x32.png">
     <link rel="apple-touch-icon" sizes="180x180" href="images/favicon-32x32.png">
-    
-    <!-- 主题颜色（可选，让移动浏览器地址栏颜色匹配） -->
     <meta name="theme-color" content="#2c3e50">
 </head>
 <body>
@@ -19,9 +17,9 @@
     <nav class="navbar">
         <div class="nav-container">
             <h1 class="nav-logo">
-    <img src="images/logo-icon.png" alt="慈善活动平台标志" class="logo-icon">
-    慈善活动平台
-</h1>
+                <img src="images/logo-icon.png" alt="慈善活动平台标志" class="logo-icon">
+                慈善活动平台
+            </h1>
             <ul class="nav-menu">
                 <li><a href="index.html" class="nav-link active">首页</a></li>
                 <li><a href="search.html" class="nav-link">搜索活动</a></li>
@@ -31,13 +29,140 @@
 
     <!-- 主要内容区域 -->
     <main class="main-content">
-        <!-- 组织介绍部分 -->
+        <!-- 组织介绍部分 - 带背景图片版本 -->
         <section class="hero-section">
+            <div class="hero-background"></div>
             <div class="container">
-                <h2>欢迎来到希望之光慈善基金会</h2>
-                <p class="mission-statement">我们致力于为每个孩子创造更美好的明天，通过各类慈善活动筹集资金，支持儿童教育、医疗和环境保护项目。</p>
-                <div class="contact-info">
-                    <p>📧 contact@hopelight.org | 📞 +61 2 1234 5678</p>
+                <div class="hero-content">
+                    <h2>欢迎来到希望之光慈善基金会</h2>
+                    <p class="mission-statement">我们致力于为每个孩子创造更美好的明天，通过各类慈善活动筹集资金，支持儿童教育、医疗和环境保护项目。</p>
+                    <div class="hero-stats">
+                        <div class="stat-item">
+                            <span class="stat-number">50+</span>
+                            <span class="stat-label">成功活动</span>
+                        </div>
+                        <div class="stat-item">
+                            <span class="stat-number">$2M+</span>
+                            <span class="stat-label">筹集资金</span>
+                        </div>
+                        <div class="stat-item">
+                            <span class="stat-number">10K+</span>
+                            <span class="stat-label">受益人群</span>
+                        </div>
+                    </div>
+                    <div class="contact-info">
+                        <p>📧 contact@hopelight.org | 📞 +61 2 1234 5678</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- 合作慈善组织部分 -->
+        <section class="organizations-section">
+            <div class="container">
+                <h2>合作慈善组织</h2>
+                <p class="section-description">我们与全球知名的慈善组织合作，共同推动公益事业发展</p>
+                
+                <div class="organizations-container">
+                    <div class="organization-card">
+                        <div class="org-header">
+                            <h3>Hope Light Charity Foundation</h3>
+                            <span class="badge public-fundraising">具有公募资格</span>
+                        </div>
+                        <div class="org-details">
+                            <div class="org-info">
+                                <span class="label">成立时间:</span>
+                                <span class="value">2005年7月7日</span>
+                            </div>
+                            <div class="org-info">
+                                <span class="label">注册机构:</span>
+                                <span class="value">Australian Charities and Not-for-profits Commission</span>
+                            </div>
+                            <div class="org-info">
+                                <span class="label">主要领域:</span>
+                                <span class="value">儿童教育、医疗救助</span>
+                            </div>
+                        </div>
+                        <div class="org-description">
+                            致力于帮助贫困儿童和家庭，为每个孩子创造更美好的明天。
+                        </div>
+                    </div>
+
+                    <div class="organization-card">
+                        <div class="org-header">
+                            <h3>Green Earth Environmental Organization</h3>
+                            <span class="badge public-fundraising">具有公募资格</span>
+                        </div>
+                        <div class="org-details">
+                            <div class="org-info">
+                                <span class="label">成立时间:</span>
+                                <span class="value">2007年1月25日</span>
+                            </div>
+                            <div class="org-info">
+                                <span class="label">注册机构:</span>
+                                <span class="value">Australian Charities and Not-for-profits Commission</span>
+                            </div>
+                            <div class="org-info">
+                                <span class="label">主要领域:</span>
+                                <span class="value">环境保护、可持续发展</span>
+                            </div>
+                        </div>
+                        <div class="org-description">
+                            专注于环境保护和可持续发展，为地球创造更绿色的未来。
+                        </div>
+                    </div>
+
+                    <div class="organization-card">
+                        <div class="org-header">
+                            <h3>Global Health Alliance</h3>
+                            <span class="badge">国际组织</span>
+                        </div>
+                        <div class="org-details">
+                            <div class="org-info">
+                                <span class="label">成立时间:</span>
+                                <span class="value">2010年3月15日</span>
+                            </div>
+                            <div class="org-info">
+                                <span class="label">注册机构:</span>
+                                <span class="value">United Nations NGO Branch</span>
+                            </div>
+                            <div class="org-info">
+                                <span class="label">主要领域:</span>
+                                <span class="value">全球医疗、疾病防控</span>
+                            </div>
+                        </div>
+                        <div class="org-description">
+                            在全球范围内提供医疗援助和疾病防控服务，改善医疗资源不平等问题。
+                        </div>
+                    </div>
+
+                    <div class="organization-card">
+                        <div class="org-header">
+                            <h3>Education for All Foundation</h3>
+                            <span class="badge public-fundraising">具有公募资格</span>
+                        </div>
+                        <div class="org-details">
+                            <div class="org-info">
+                                <span class="label">成立时间:</span>
+                                <span class="value">2012年9月10日</span>
+                            </div>
+                            <div class="org-info">
+                                <span class="label">注册机构:</span>
+                                <span class="value">UK Charity Commission</span>
+                            </div>
+                            <div class="org-info">
+                                <span class="label">主要领域:</span>
+                                <span class="value">教育平等、助学计划</span>
+                            </div>
+                        </div>
+                        <div class="org-description">
+                            推动全球教育平等，为偏远地区儿童提供教育资源和学习机会。
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="organizations-footer">
+                    <p>所有合作组织均经过严格审核，确保善款使用透明、高效。</p>
                 </div>
             </div>
         </section>
