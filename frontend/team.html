@@ -1,0 +1,506 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>我们的团队 - CharityHub</title>
+    <link rel="stylesheet" href="css/style.css">
+    
+    <!-- Favicon 设置 -->
+    <link rel="icon" type="image/x-icon" href="images/favicon.ico">
+    <link rel="icon" type="image/png" sizes="32x32" href="images/favicon-32x32.png">
+    <link rel="apple-touch-icon" sizes="180x180" href="images/favicon-32x32.png">
+    <meta name="theme-color" content="#2c3e50">
+    
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Pacifico&family=Dancing+Script:wght@700&family=Sacramento&family=Playfair+Display:wght@700&display=swap" rel="stylesheet">
+    
+    <style>
+        /* 团队页面专用样式 */
+        .team-hero-section {
+            position: relative;
+            color: white;
+            padding: 4rem 2rem;
+            margin-bottom: 2rem;
+            border-radius: 15px;
+            overflow: hidden;
+            min-height: 400px;
+            display: flex;
+            align-items: center;
+            text-align: center;
+        }
+
+        .team-hero-background {
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: 
+                linear-gradient(135deg, rgba(44, 62, 80, 0.9) 0%, rgba(44, 62, 80, 0.7) 100%),
+                url('../images/team-hero.jpg') no-repeat center center;
+            background-size: cover;
+            z-index: -1;
+        }
+
+        .team-hero-content {
+            max-width: 800px;
+            margin: 0 auto;
+            position: relative;
+            z-index: 2;
+        }
+
+        .team-hero-content h1 {
+            font-size: 3rem;
+            margin-bottom: 1rem;
+            line-height: 1.2;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.5);
+        }
+
+        .team-hero-content p {
+            font-size: 1.3rem;
+            line-height: 1.6;
+            text-shadow: 1px 1px 2px rgba(0,0,0,0.5);
+            opacity: 0.9;
+        }
+
+        /* 团队成员网格 */
+        .team-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            margin: 3rem 0;
+        }
+
+        .team-member-card {
+            background: white;
+            border-radius: 15px;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.1);
+            overflow: hidden;
+            transition: all 0.3s ease;
+            text-align: center;
+        }
+
+        .team-member-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 40px rgba(0,0,0,0.2);
+        }
+
+        .member-image {
+            width: 100%;
+            height: 250px;
+            object-fit: cover;
+            border-bottom: 4px solid #3498db;
+        }
+
+        .member-content {
+            padding: 2rem;
+        }
+
+        .member-name {
+            font-size: 1.5rem;
+            color: #2c3e50;
+            margin-bottom: 0.5rem;
+            font-weight: bold;
+        }
+
+        .member-role {
+            color: #3498db;
+            font-size: 1.1rem;
+            margin-bottom: 1rem;
+            font-weight: 600;
+        }
+
+        .member-description {
+            color: #666;
+            line-height: 1.6;
+            margin-bottom: 1.5rem;
+        }
+
+        .member-skills {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.5rem;
+            justify-content: center;
+            margin-bottom: 1.5rem;
+        }
+
+        .skill-tag {
+            background: #f8f9fa;
+            color: #2c3e50;
+            padding: 0.3rem 0.8rem;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            border: 1px solid #e9ecef;
+        }
+
+        .member-contact {
+            display: flex;
+            justify-content: center;
+            gap: 1rem;
+        }
+
+        .contact-link {
+            color: #666;
+            text-decoration: none;
+            transition: color 0.3s;
+            display: flex;
+            align-items: center;
+            gap: 0.3rem;
+        }
+
+        .contact-link:hover {
+            color: #3498db;
+        }
+
+        /* 团队使命部分 */
+        .team-mission-section {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 4rem 2rem;
+            border-radius: 15px;
+            margin: 4rem 0;
+            text-align: center;
+        }
+
+        .mission-content {
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        .mission-content h2 {
+            font-size: 2.5rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .mission-content p {
+            font-size: 1.2rem;
+            line-height: 1.8;
+            margin-bottom: 2rem;
+            opacity: 0.9;
+        }
+
+        /* 统计数据部分 */
+        .team-stats {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 2rem;
+            margin: 3rem 0;
+        }
+
+        .stat-card {
+            background: white;
+            padding: 2rem;
+            border-radius: 10px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+            text-align: center;
+            transition: transform 0.3s ease;
+        }
+
+        .stat-card:hover {
+            transform: translateY(-5px);
+        }
+
+        .stat-number {
+            font-size: 3rem;
+            font-weight: bold;
+            color: #3498db;
+            margin-bottom: 0.5rem;
+        }
+
+        .stat-label {
+            color: #666;
+            font-size: 1.1rem;
+        }
+
+        /* 响应式设计 */
+        @media (max-width: 768px) {
+            .team-hero-section {
+                padding: 3rem 1rem;
+                min-height: 300px;
+            }
+            
+            .team-hero-content h1 {
+                font-size: 2.2rem;
+            }
+            
+            .team-hero-content p {
+                font-size: 1.1rem;
+            }
+            
+            .team-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .team-stats {
+                grid-template-columns: repeat(2, 1fr);
+            }
+            
+            .mission-content h2 {
+                font-size: 2rem;
+            }
+            
+            .mission-content p {
+                font-size: 1.1rem;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .team-stats {
+                grid-template-columns: 1fr;
+            }
+            
+            .stat-card {
+                padding: 1.5rem;
+            }
+            
+            .stat-number {
+                font-size: 2.5rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- 导航菜单 -->
+    <nav class="navbar">
+        <div class="nav-container">
+            <h1 class="nav-logo">
+                <img src="images/logo-icon.png" alt="CharityHub" class="logo-icon">
+                CharityHub
+            </h1>
+            <ul class="nav-menu">
+                <li><a href="index.html" class="nav-link">首页</a></li>
+                <li><a href="search.html" class="nav-link">搜索活动</a></li>
+                <li><a href="team.html" class="nav-link active">团队</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <!-- 主要内容区域 -->
+    <main class="main-content">
+        <!-- 团队英雄区域 -->
+        <section class="team-hero-section">
+            <div class="team-hero-background"></div>
+            <div class="team-hero-content">
+                <h1>认识我们的团队</h1>
+                <p>希望之光慈善基金会的专业团队，致力于通过慈善活动让世界变得更美好</p>
+            </div>
+        </section>
+
+        <!-- 团队成员介绍 -->
+        <section class="container">
+            <h2 style="text-align: center; margin-bottom: 3rem; color: #2c3e50;">核心团队成员</h2>
+            
+            <div class="team-grid">
+                <!-- 团队成员 1 - 男性 -->
+                <div class="team-member-card">
+                    <img src="images/team-member1.jpg" alt="David Chen" class="member-image" onerror="this.src='/images/placeholder.jpg'">
+                    <div class="member-content">
+                        <h3 class="member-name">David Chen</h3>
+                        <div class="member-role">执行总监</div>
+                        <p class="member-description">
+                            拥有15年非营利组织管理经验，致力于推动慈善事业的创新和发展，带领团队实现社会影响力的最大化。
+                        </p>
+                        <div class="member-skills">
+                            <span class="skill-tag">战略规划</span>
+                            <span class="skill-tag">领导力</span>
+                            <span class="skill-tag">筹款管理</span>
+                            <span class="skill-tag">公共关系</span>
+                        </div>
+                        <div class="member-contact">
+                            <a href="mailto:david.chen@hopelight.org" class="contact-link">📧 邮箱</a>
+                            <a href="#" class="contact-link">💼 LinkedIn</a>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 团队成员 2 - 女性 -->
+                <div class="team-member-card">
+                    <img src="images/team-member2.jpg" alt="Sarah Johnson" class="member-image" onerror="this.src='/images/placeholder.jpg'">
+                    <div class="member-content">
+                        <h3 class="member-name">Sarah Johnson</h3>
+                        <div class="member-role">项目总监</div>
+                        <p class="member-description">
+                            负责慈善项目的策划和执行，拥有10年项目管理经验，擅长将创意转化为实际的社会影响。
+                        </p>
+                        <div class="member-skills">
+                            <span class="skill-tag">项目管理</span>
+                            <span class="skill-tag">活动策划</span>
+                            <span class="skill-tag">社区参与</span>
+                            <span class="skill-tag">合作伙伴关系</span>
+                        </div>
+                        <div class="member-contact">
+                            <a href="mailto:sarah.johnson@hopelight.org" class="contact-link">📧 邮箱</a>
+                            <a href="#" class="contact-link">💼 LinkedIn</a>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 团队成员 3 - 女性 -->
+                <div class="team-member-card">
+                    <img src="images/team-member3.jpg" alt="Emily Wang" class="member-image" onerror="this.src='/images/placeholder.jpg'">
+                    <div class="member-content">
+                        <h3 class="member-name">Emily Wang</h3>
+                        <div class="member-role">志愿者协调员</div>
+                        <p class="member-description">
+                            负责志愿者招募、培训和管理，建立强大的志愿者网络，确保每个活动都有足够的支持。
+                        </p>
+                        <div class="member-skills">
+                            <span class="skill-tag">志愿者管理</span>
+                            <span class="skill-tag">培训发展</span>
+                            <span class="skill-tag">沟通协调</span>
+                            <span class="skill-tag">团队建设</span>
+                        </div>
+                        <div class="member-contact">
+                            <a href="mailto:emily.wang@hopelight.org" class="contact-link">📧 邮箱</a>
+                            <a href="#" class="contact-link">💼 LinkedIn</a>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 团队成员 4 - 男性 -->
+                <div class="team-member-card">
+                    <img src="images/team-member4.jpg" alt="Michael Brown" class="member-image" onerror="this.src='/images/placeholder.jpg'">
+                    <div class="member-content">
+                        <h3 class="member-name">Michael Brown</h3>
+                        <div class="member-role">筹款经理</div>
+                        <p class="member-description">
+                            负责筹款策略制定和执行，与企业捐赠者建立长期合作关系，确保慈善项目的资金支持。
+                        </p>
+                        <div class="member-skills">
+                            <span class="skill-tag">筹款策略</span>
+                            <span class="skill-tag">企业合作</span>
+                            <span class="skill-tag">捐赠者关系</span>
+                            <span class="skill-tag">财务规划</span>
+                        </div>
+                        <div class="member-contact">
+                            <a href="mailto:michael.brown@hopelight.org" class="contact-link">📧 邮箱</a>
+                            <a href="#" class="contact-link">💼 LinkedIn</a>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 团队成员 5 - 女性 (新增) -->
+                <div class="team-member-card">
+                    <img src="images/team-member5.jpg" alt="Jessica Lee" class="member-image" onerror="this.src='/images/placeholder.jpg'">
+                    <div class="member-content">
+                        <h3 class="member-name">Jessica Lee</h3>
+                        <div class="member-role">宣传与传播经理</div>
+                        <p class="member-description">
+                            负责慈善组织的品牌建设和媒体关系，通过有效的传播策略提高组织的社会影响力。
+                        </p>
+                        <div class="member-skills">
+                            <span class="skill-tag">品牌建设</span>
+                            <span class="skill-tag">媒体关系</span>
+                            <span class="skill-tag">社交媒体</span>
+                            <span class="skill-tag">内容创作</span>
+                        </div>
+                        <div class="member-contact">
+                            <a href="mailto:jessica.lee@hopelight.org" class="contact-link">📧 邮箱</a>
+                            <a href="#" class="contact-link">💼 LinkedIn</a>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 团队成员 6 - 男性 (新增) -->
+                <div class="team-member-card">
+                    <img src="images/team-member6.jpg" alt="Robert Wilson" class="member-image" onerror="this.src='/images/placeholder.jpg'">
+                    <div class="member-content">
+                        <h3 class="member-name">Robert Wilson</h3>
+                        <div class="member-role">财务与运营总监</div>
+                        <p class="member-description">
+                            负责组织的财务管理和日常运营，确保资源高效利用，财务透明合规。
+                        </p>
+                        <div class="member-skills">
+                            <span class="skill-tag">财务管理</span>
+                            <span class="skill-tag">运营优化</span>
+                            <span class="skill-tag">合规审计</span>
+                            <span class="skill-tag">资源分配</span>
+                        </div>
+                        <div class="member-contact">
+                            <a href="mailto:robert.wilson@hopelight.org" class="contact-link">📧 邮箱</a>
+                            <a href="#" class="contact-link">💼 LinkedIn</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- 团队统计数据 - 已更新与首页一致 -->
+        <section class="container">
+            <div class="team-stats">
+                <div class="stat-card">
+                    <div class="stat-number">50+</div>
+                    <div class="stat-label">成功活动</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-number">6</div>
+                    <div class="stat-label">核心成员</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-number">10K+</div>
+                    <div class="stat-label">受益人群</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-number">$2M+</div>
+                    <div class="stat-label">筹集资金</div>
+                </div>
+            </div>
+        </section>
+
+        <!-- 团队使命 -->
+        <section class="team-mission-section">
+            <div class="mission-content">
+                <h2>我们的使命</h2>
+                <p>
+                    我们相信每个人都能够为创造更美好的世界贡献力量。作为希望之光慈善基金会的专业团队，
+                    我们致力于为每个孩子创造更美好的明天，通过各类慈善活动筹集资金，支持儿童教育、医疗和环境保护项目。
+                </p>
+                <p>
+                    从项目策划到执行，从志愿者管理到资金筹集，我们确保每一个环节都达到最高标准，
+                    让每一分善款都能产生最大的社会价值。
+                </p>
+            </div>
+        </section>
+
+        <!-- 联系信息 - 与首页一致 -->
+        <section class="container" style="text-align: center; margin-bottom: 4rem;">
+            <h2 style="margin-bottom: 1rem; color: #2c3e50;">联系我们</h2>
+            <div style="background: #f8f9fa; padding: 2rem; border-radius: 10px; display: inline-block;">
+                <p style="font-size: 1.2rem; margin: 0;">
+                    📧 contact@hopelight.org | 📞 +61 2 1234 5678
+                </p>
+                <p style="color: #666; margin-top: 0.5rem; margin-bottom: 0;">
+                    悉尼市中心123号
+                </p>
+            </div>
+        </section>
+
+        <!-- 加入我们 -->
+        <section class="container" style="margin-bottom: 4rem; text-align: center;">
+            <h2 style="margin-bottom: 1rem; color: #2c3e50;">加入我们的使命</h2>
+            <p style="color: #666; margin-bottom: 2rem; max-width: 600px; margin-left: auto; margin-right: auto;">
+                无论您是希望成为志愿者、捐赠者还是合作伙伴，我们都欢迎您加入希望之光慈善基金会，共同为孩子们创造更美好的明天。
+            </p>
+            <div style="display: flex; gap: 1rem; justify-content: center; flex-wrap: wrap;">
+                <button onclick="alert('志愿者申请表格即将开放')" 
+                        style="background: #3498db; color: white; border: none; padding: 1rem 2rem; border-radius: 8px; cursor: pointer;">
+                    成为志愿者
+                </button>
+                <button onclick="alert('捐款信息将发送至您的邮箱')" 
+                        style="background: #e74c3c; color: white; border: none; padding: 1rem 2rem; border-radius: 8px; cursor: pointer;">
+                    立即捐赠
+                </button>
+                <button onclick="alert('合作伙伴申请已收到')" 
+                        style="background: #27ae60; color: white; border: none; padding: 1rem 2rem; border-radius: 8px; cursor: pointer;">
+                    成为合作伙伴
+                </button>
+            </div>
+        </section>
+    </main>
+
+    <script src="js/main.js"></script>
+</body>
+</html>
