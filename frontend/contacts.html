@@ -18,7 +18,7 @@
     <link href="https://fonts.googleapis.com/css2?family=Pacifico&family=Dancing+Script:wght@700&family=Sacramento&family=Playfair+Display:wght@700&display=swap" rel="stylesheet">
     
     <style>
-        /* 联系页面专用样式 */
+        /* 整合的英雄模块和联系表单 */
         .contact-hero-section {
             position: relative;
             color: white;
@@ -26,10 +26,9 @@
             margin-bottom: 2rem;
             border-radius: 15px;
             overflow: hidden;
-            min-height: 400px;
+            min-height: 600px;
             display: flex;
             align-items: center;
-            text-align: center;
         }
 
         .contact-hero-background {
@@ -39,31 +38,132 @@
             right: 0;
             bottom: 0;
             background: 
-                linear-gradient(135deg, rgba(44, 62, 80, 0.9) 0%, rgba(44, 62, 80, 0.7) 100%),
+                linear-gradient(135deg, rgba(44, 62, 80, 0.85) 0%, rgba(44, 62, 80, 0.7) 100%),
                 url('../images/contact-hero.jpg') no-repeat center center;
             background-size: cover;
             z-index: -1;
         }
 
         .contact-hero-content {
-            max-width: 800px;
+            max-width: 1200px;
             margin: 0 auto;
+            width: 100%;
             position: relative;
             z-index: 2;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 3rem;
+            align-items: center;
         }
 
-        .contact-hero-content h1 {
+        .hero-text {
+            max-width: 500px;
+        }
+
+        .hero-text h1 {
             font-size: 3rem;
             margin-bottom: 1rem;
             line-height: 1.2;
             text-shadow: 2px 2px 4px rgba(0,0,0,0.5);
         }
 
-        .contact-hero-content p {
+        .hero-text p {
             font-size: 1.3rem;
             line-height: 1.6;
             text-shadow: 1px 1px 2px rgba(0,0,0,0.5);
             opacity: 0.9;
+            margin-bottom: 2rem;
+        }
+
+        .hero-stats {
+            display: flex;
+            gap: 2rem;
+            margin-top: 2rem;
+        }
+
+        .stat-item {
+            text-align: center;
+        }
+
+        .stat-number {
+            display: block;
+            font-size: 1.8rem;
+            font-weight: bold;
+            margin-bottom: 0.3rem;
+            text-shadow: 1px 1px 2px rgba(0,0,0,0.5);
+        }
+
+        .stat-label {
+            font-size: 0.9rem;
+            opacity: 0.9;
+        }
+
+        /* 联系表单样式 */
+        .contact-form-container {
+            background: rgba(255, 255, 255, 0.95);
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+            padding: 2.5rem;
+            backdrop-filter: blur(10px);
+        }
+
+        .contact-form-container h2 {
+            color: #2c3e50;
+            margin-bottom: 1.5rem;
+            text-align: center;
+            font-size: 1.8rem;
+        }
+
+        .form-group {
+            margin-bottom: 1.5rem;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 0.5rem;
+            font-weight: 600;
+            color: #2c3e50;
+        }
+
+        .form-group input,
+        .form-group textarea,
+        .form-group select {
+            width: 100%;
+            padding: 0.8rem;
+            border: 2px solid #e0e0e0;
+            border-radius: 8px;
+            font-size: 1rem;
+            transition: border-color 0.3s;
+        }
+
+        .form-group input:focus,
+        .form-group textarea:focus,
+        .form-group select:focus {
+            outline: none;
+            border-color: #3498db;
+            box-shadow: 0 0 0 3px rgba(52, 152, 219, 0.1);
+        }
+
+        .form-group textarea {
+            height: 120px;
+            resize: vertical;
+        }
+
+        .submit-btn {
+            background: #3498db;
+            color: white;
+            border: none;
+            padding: 1rem 2rem;
+            font-size: 1.1rem;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+            width: 100%;
+            font-weight: 600;
+        }
+
+        .submit-btn:hover {
+            background: #2980b9;
         }
 
         /* 联系信息水平交替布局 */
@@ -115,72 +215,6 @@
         .info-highlight {
             font-weight: bold;
             color: #3498db;
-        }
-
-        /* 联系表单 */
-        .contact-form-section {
-            background: white;
-            border-radius: 15px;
-            box-shadow: 0 5px 20px rgba(0,0,0,0.1);
-            padding: 3rem;
-            margin: 3rem 0;
-        }
-
-        .contact-form-section h2 {
-            text-align: center;
-            color: #2c3e50;
-            margin-bottom: 2rem;
-        }
-
-        .form-group {
-            margin-bottom: 1.5rem;
-        }
-
-        .form-group label {
-            display: block;
-            margin-bottom: 0.5rem;
-            font-weight: 600;
-            color: #2c3e50;
-        }
-
-        .form-group input,
-        .form-group textarea,
-        .form-group select {
-            width: 100%;
-            padding: 0.8rem;
-            border: 2px solid #e0e0e0;
-            border-radius: 8px;
-            font-size: 1rem;
-            transition: border-color 0.3s;
-        }
-
-        .form-group input:focus,
-        .form-group textarea:focus,
-        .form-group select:focus {
-            outline: none;
-            border-color: #3498db;
-            box-shadow: 0 0 0 3px rgba(52, 152, 219, 0.1);
-        }
-
-        .form-group textarea {
-            height: 150px;
-            resize: vertical;
-        }
-
-        .submit-btn {
-            background: #3498db;
-            color: white;
-            border: none;
-            padding: 1rem 2rem;
-            font-size: 1.1rem;
-            border-radius: 8px;
-            cursor: pointer;
-            transition: background-color 0.3s;
-            width: 100%;
-        }
-
-        .submit-btn:hover {
-            background: #2980b9;
         }
 
         /* 办公地点 */
@@ -268,17 +302,26 @@
 
         /* 响应式设计 */
         @media (max-width: 768px) {
-            .contact-hero-section {
-                padding: 3rem 1rem;
-                min-height: 300px;
+            .contact-hero-content {
+                grid-template-columns: 1fr;
+                gap: 2rem;
             }
             
-            .contact-hero-content h1 {
+            .hero-text {
+                text-align: center;
+            }
+            
+            .hero-text h1 {
                 font-size: 2.2rem;
             }
             
-            .contact-hero-content p {
+            .hero-text p {
                 font-size: 1.1rem;
+            }
+            
+            .hero-stats {
+                justify-content: center;
+                gap: 1.5rem;
             }
             
             .contact-item {
@@ -295,10 +338,6 @@
             }
             
             .contact-content {
-                padding: 2rem;
-            }
-            
-            .contact-form-section {
                 padding: 2rem;
             }
             
@@ -327,12 +366,69 @@
 
     <!-- 主要内容区域 -->
     <main class="main-content">
-        <!-- 联系英雄区域 -->
+        <!-- 整合的英雄模块和联系表单 -->
         <section class="contact-hero-section">
             <div class="contact-hero-background"></div>
             <div class="contact-hero-content">
-                <h1>联系我们</h1>
-                <p>我们期待听到您的声音，共同为慈善事业贡献力量</p>
+                <div class="hero-text">
+                    <h1>联系我们</h1>
+                    <p>我们期待听到您的声音，共同为慈善事业贡献力量。无论您是希望成为志愿者、捐赠者还是合作伙伴，我们都欢迎您与我们联系。</p>
+                    
+                    <div class="hero-stats">
+                        <div class="stat-item">
+                            <span class="stat-number">24h</span>
+                            <span class="stat-label">响应时间</span>
+                        </div>
+                        <div class="stat-item">
+                            <span class="stat-number">98%</span>
+                            <span class="stat-label">满意度</span>
+                        </div>
+                        <div class="stat-item">
+                            <span class="stat-number">50+</span>
+                            <span class="stat-label">合作伙伴</span>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="contact-form-container">
+                    <h2>发送消息</h2>
+                    <form id="contact-form">
+                        <div class="form-group">
+                            <label for="name">姓名 *</label>
+                            <input type="text" id="name" name="name" required>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="email">电子邮件 *</label>
+                            <input type="email" id="email" name="email" required>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="phone">电话号码</label>
+                            <input type="tel" id="phone" name="phone">
+                        </div>
+
+                        <div class="form-group">
+                            <label for="subject">主题 *</label>
+                            <select id="subject" name="subject" required>
+                                <option value="">请选择主题</option>
+                                <option value="general">一般咨询</option>
+                                <option value="volunteer">志愿者申请</option>
+                                <option value="donation">捐款咨询</option>
+                                <option value="partnership">合作伙伴</option>
+                                <option value="event">活动相关</option>
+                                <option value="other">其他</option>
+                            </select>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="message">消息内容 *</label>
+                            <textarea id="message" name="message" placeholder="请详细描述您的问题或需求..." required></textarea>
+                        </div>
+
+                        <button type="submit" class="submit-btn">发送消息</button>
+                    </form>
+                </div>
             </div>
         </section>
 
@@ -412,47 +508,6 @@
                     </div>
                 </div>
             </div>
-        </section>
-
-        <!-- 联系表单 -->
-        <section class="contact-form-section">
-            <h2>发送消息</h2>
-            <form id="contact-form">
-                <div class="form-group">
-                    <label for="name">姓名 *</label>
-                    <input type="text" id="name" name="name" required>
-                </div>
-
-                <div class="form-group">
-                    <label for="email">电子邮件 *</label>
-                    <input type="email" id="email" name="email" required>
-                </div>
-
-                <div class="form-group">
-                    <label for="phone">电话号码</label>
-                    <input type="tel" id="phone" name="phone">
-                </div>
-
-                <div class="form-group">
-                    <label for="subject">主题 *</label>
-                    <select id="subject" name="subject" required>
-                        <option value="">请选择主题</option>
-                        <option value="general">一般咨询</option>
-                        <option value="volunteer">志愿者申请</option>
-                        <option value="donation">捐款咨询</option>
-                        <option value="partnership">合作伙伴</option>
-                        <option value="event">活动相关</option>
-                        <option value="other">其他</option>
-                    </select>
-                </div>
-
-                <div class="form-group">
-                    <label for="message">消息内容 *</label>
-                    <textarea id="message" name="message" placeholder="请详细描述您的问题或需求..." required></textarea>
-                </div>
-
-                <button type="submit" class="submit-btn">发送消息</button>
-            </form>
         </section>
 
         <!-- 办公地点 -->
