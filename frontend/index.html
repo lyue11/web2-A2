@@ -3,22 +3,74 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>慈善活动平台 - 首页</title>
+    <title>CharityHub - Home</title>
     <link rel="stylesheet" href="css/style.css">
+    
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Pacifico&family=Dancing+Script:wght@700&family=Sacramento&family=Playfair+Display:wght@700&display=swap" rel="stylesheet">
     
     <!-- Favicon 设置 -->
     <link rel="icon" type="image/x-icon" href="images/favicon.ico">
     <link rel="icon" type="image/png" sizes="32x32" href="images/favicon-32x32.png">
     <link rel="apple-touch-icon" sizes="180x180" href="images/favicon-32x32.png">
     <meta name="theme-color" content="#2c3e50">
+    
+    <style>
+        /* 导航栏艺术字体样式 */
+        .nav-logo {
+            display: flex;
+            align-items: center;
+            gap: 0.8rem;
+            font-size: 1.8rem;
+            font-weight: normal;
+            font-family: 'Pacifico', cursive;
+            color: white;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+            letter-spacing: 0.5px;
+            transition: all 0.3s ease;
+        }
+
+        .nav-logo:hover {
+            text-shadow: 2px 2px 6px rgba(0,0,0,0.5);
+            transform: scale(1.02);
+        }
+
+        .logo-icon {
+            height: 32px;
+            width: 32px;
+            object-fit: contain;
+            border-radius: 4px;
+            transition: transform 0.3s ease;
+            filter: drop-shadow(1px 1px 2px rgba(0,0,0,0.3));
+        }
+
+        .logo-icon:hover {
+            transform: scale(1.1) rotate(5deg);
+        }
+
+        /* 响应式设计调整 */
+        @media (max-width: 768px) {
+            .nav-logo {
+                font-size: 1.5rem;
+                gap: 0.5rem;
+            }
+            
+            .logo-icon {
+                height: 28px;
+                width: 28px;
+            }
+        }
+    </style>
 </head>
 <body>
     <!-- 导航菜单 -->
     <nav class="navbar">
         <div class="nav-container">
             <h1 class="nav-logo">
-                <img src="images/logo-icon.png" alt="慈善活动平台标志" class="logo-icon">
-                慈善活动平台
+                <img src="images/logo-icon.png" alt="CharityHub" class="logo-icon">
+                CharityHub
             </h1>
             <ul class="nav-menu">
                 <li><a href="index.html" class="nav-link active">首页</a></li>

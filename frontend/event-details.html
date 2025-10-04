@@ -3,14 +3,19 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>活动详情 - 慈善活动平台</title>
+    <title>活动详情 - CharityHub</title>
     <link rel="stylesheet" href="css/style.css">
-
-        <!-- Favicon 设置 -->
+    
+    <!-- Favicon 设置 -->
     <link rel="icon" type="image/x-icon" href="images/favicon.ico">
     <link rel="icon" type="image/png" sizes="32x32" href="images/favicon-32x32.png">
     <link rel="apple-touch-icon" sizes="180x180" href="images/favicon-32x32.png">
     <meta name="theme-color" content="#2c3e50">
+    
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@700&family=Pacifico&family=Playfair+Display:wght@700&family=Sacramento&display=swap" rel="stylesheet">
     
     <style>
         /* 详情页特定样式 */
@@ -21,17 +26,17 @@
             overflow: hidden;
             margin-bottom: 2rem;
         }
-        
+
         .event-hero-image {
             width: 100%;
             height: 400px;
             object-fit: cover;
         }
-        
+
         .event-detail-content {
             padding: 2rem;
         }
-        
+
         .event-header {
             display: flex;
             justify-content: space-between;
@@ -40,13 +45,13 @@
             flex-wrap: wrap;
             gap: 1rem;
         }
-        
+
         .event-title {
             font-size: 2.5rem;
             color: #2c3e50;
             margin-bottom: 0.5rem;
         }
-        
+
         .event-meta-details {
             display: flex;
             flex-direction: column;
@@ -56,21 +61,21 @@
             border-radius: 8px;
             min-width: 300px;
         }
-        
+
         .meta-item {
             display: flex;
             align-items: center;
             gap: 0.5rem;
             margin-bottom: 0.5rem;
         }
-        
+
         .fundraising-section {
             background: #e8f4fd;
             padding: 1.5rem;
             border-radius: 8px;
             margin: 2rem 0;
         }
-        
+
         .progress-bar {
             background: #ddd;
             border-radius: 10px;
@@ -78,24 +83,24 @@
             margin: 1rem 0;
             overflow: hidden;
         }
-        
+
         .progress-fill {
             background: #27ae60;
             height: 100%;
             transition: width 0.3s ease;
         }
-        
+
         .progress-text {
             display: flex;
             justify-content: space-between;
             font-weight: bold;
         }
-        
+
         .register-section {
             text-align: center;
             margin: 2rem 0;
         }
-        
+
         .register-btn {
             background: #e74c3c;
             color: white;
@@ -106,25 +111,147 @@
             cursor: pointer;
             transition: background-color 0.3s;
         }
-        
+
         .register-btn:hover {
             background: #c0392b;
         }
-        
+
         .full-description {
             line-height: 1.8;
             margin: 2rem 0;
         }
-        
+
         .back-link {
             display: inline-block;
             margin-bottom: 1rem;
             color: #3498db;
             text-decoration: none;
+            padding: 0.5rem 1rem;
+            border: 1px solid #3498db;
+            border-radius: 5px;
+            transition: all 0.3s;
         }
-        
+
         .back-link:hover {
-            text-decoration: underline;
+            background: #3498db;
+            color: white;
+            text-decoration: none;
+        }
+
+        /* 组织信息卡片 */
+        .organization-card {
+            background: #f8f9fa;
+            padding: 1.5rem;
+            border-radius: 8px;
+            margin: 2rem 0;
+            border-left: 4px solid #3498db;
+        }
+
+        .organization-card h3 {
+            color: #2c3e50;
+            margin-bottom: 1rem;
+        }
+
+        .organization-info {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 1rem;
+            margin-bottom: 1rem;
+        }
+
+        .org-info-item {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .org-info-label {
+            font-weight: bold;
+            color: #555;
+            font-size: 0.9rem;
+            margin-bottom: 0.3rem;
+        }
+
+        .org-info-value {
+            color: #2c3e50;
+        }
+
+        /* 相关活动推荐 */
+        .related-events {
+            margin-top: 3rem;
+            padding-top: 2rem;
+            border-top: 2px solid #f1f2f6;
+        }
+
+        .related-events h3 {
+            color: #2c3e50;
+            margin-bottom: 1.5rem;
+            text-align: center;
+        }
+
+        .related-events-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 1.5rem;
+        }
+
+        .related-event-card {
+            background: white;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+            overflow: hidden;
+            transition: transform 0.3s;
+        }
+
+        .related-event-card:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 4px 8px rgba(0,0,0,0.15);
+        }
+
+        .related-event-image {
+            width: 100%;
+            height: 150px;
+            object-fit: cover;
+        }
+
+        .related-event-content {
+            padding: 1rem;
+        }
+
+        .related-event-title {
+            font-size: 1.1rem;
+            color: #2c3e50;
+            margin-bottom: 0.5rem;
+        }
+
+        .related-event-meta {
+            display: flex;
+            justify-content: space-between;
+            font-size: 0.8rem;
+            color: #666;
+            margin-bottom: 0.5rem;
+        }
+
+        /* 响应式设计 */
+        @media (max-width: 768px) {
+            .event-header {
+                flex-direction: column;
+            }
+            
+            .event-meta-details {
+                min-width: 100%;
+            }
+            
+            .event-title {
+                font-size: 2rem;
+            }
+            
+            .organization-info {
+                grid-template-columns: 1fr;
+            }
+            
+            .related-events-grid {
+                grid-template-columns: 1fr;
+            }
         }
     </style>
 </head>
@@ -133,9 +260,9 @@
     <nav class="navbar">
         <div class="nav-container">
             <h1 class="nav-logo">
-    <img src="images/logo-icon.png" alt="慈善活动平台标志" class="logo-icon">
-    慈善活动平台
-</h1>
+                <img src="images/logo-icon.png" alt="CharityHub" class="logo-icon">
+                CharityHub
+            </h1>
             <ul class="nav-menu">
                 <li><a href="index.html" class="nav-link">首页</a></li>
                 <li><a href="search.html" class="nav-link">搜索活动</a></li>
@@ -145,7 +272,7 @@
 
     <!-- 主要内容区域 -->
     <main class="main-content">
-        <a href="javascript:history.back()" class="back-link">← 返回</a>
+        <a href="javascript:history.back()" class="back-link">← 返回上一页</a>
         
         <div id="event-loading" class="loading">加载活动详情...</div>
         
@@ -203,14 +330,210 @@
                     <p id="event-venue-details" style="margin-top: 1rem;"></p>
                 </div>
                 
+                <div id="organization-card" class="organization-card" style="display: none;">
+                    <h3>关于组织者</h3>
+                    <div class="organization-info">
+                        <div class="org-info-item">
+                            <span class="org-info-label">组织名称</span>
+                            <span class="org-info-value" id="org-name"></span>
+                        </div>
+                        <div class="org-info-item">
+                            <span class="org-info-label">使命宣言</span>
+                            <span class="org-info-value" id="org-mission"></span>
+                        </div>
+                        <div class="org-info-item">
+                            <span class="org-info-label">联系方式</span>
+                            <span class="org-info-value" id="org-contact"></span>
+                        </div>
+                    </div>
+                    <p id="org-description"></p>
+                </div>
+                
                 <div class="register-section">
                     <button id="register-btn" class="register-btn">立即报名参加</button>
                 </div>
+            </div>
+        </div>
+        
+        <!-- 相关活动推荐 -->
+        <div class="related-events">
+            <h3>您可能也感兴趣的活动</h3>
+            <div id="related-events-container" class="related-events-grid">
+                <!-- 相关活动将通过JavaScript动态加载 -->
             </div>
         </div>
     </main>
 
     <script src="js/main.js"></script>
     <script src="js/event-details.js"></script>
+    
+    <script>
+        // 增强的详情页功能
+        document.addEventListener('DOMContentLoaded', function() {
+            // 设置返回按钮功能
+            const backLink = document.querySelector('.back-link');
+            backLink.addEventListener('click', function() {
+                if (document.referrer && document.referrer.includes(window.location.hostname)) {
+                    window.history.back();
+                } else {
+                    window.location.href = 'index.html';
+                }
+            });
+            
+            // 加载活动详情
+            loadEventDetails();
+            setupRegisterButton();
+        });
+
+        // 加载活动详情
+        async function loadEventDetails() {
+            try {
+                showElement('event-loading');
+                hideElement('event-error');
+                hideElement('event-detail-container');
+                hideElement('organization-card');
+                
+                // 从URL获取活动ID
+                const urlParams = new URLSearchParams(window.location.search);
+                const eventId = urlParams.get('id');
+                
+                if (!eventId) {
+                    throw new Error('未指定活动ID');
+                }
+                
+                const response = await fetch(`${API_BASE_URL}/events/${eventId}`);
+                const result = await response.json();
+                
+                if (!response.ok) {
+                    throw new Error(result.message || '获取活动详情失败');
+                }
+                
+                if (result.success) {
+                    displayEventDetails(result.data);
+                    // 加载相关活动
+                    loadRelatedEvents(result.data.category_id, eventId);
+                } else {
+                    throw new Error('活动数据加载失败');
+                }
+                
+            } catch (error) {
+                console.error('加载活动详情失败:', error);
+                showError('event-error', `加载失败: ${error.message}`);
+            } finally {
+                hideElement('event-loading');
+            }
+        }
+
+        // 显示活动详情
+        function displayEventDetails(event) {
+            // 设置基本信息
+            document.getElementById('event-title').textContent = event.title;
+            document.getElementById('event-category').textContent = event.category_name;
+            document.getElementById('event-date').textContent = formatDate(event.event_date);
+            document.getElementById('event-time').textContent = event.event_time || '时间待定';
+            document.getElementById('event-location').textContent = event.location;
+            document.getElementById('event-organisation').textContent = event.organisation_name;
+            
+            // 设置票务信息
+            const priceElement = document.getElementById('event-price');
+            if (event.is_free) {
+                priceElement.textContent = '免费活动';
+            } else {
+                priceElement.textContent = `$${event.ticket_price}`;
+            }
+            
+            // 设置图片
+            const heroImage = document.getElementById('event-hero-image');
+            heroImage.src = event.image_url;
+            heroImage.alt = event.title;
+            
+            // 设置筹款进度
+            const goal = parseFloat(event.fundraising_goal) || 0;
+            const current = parseFloat(event.current_amount) || 0;
+            const percentage = goal > 0 ? Math.min((current / goal) * 100, 100) : 0;
+            
+            document.getElementById('current-amount').textContent = current.toLocaleString();
+            document.getElementById('fundraising-goal').textContent = goal.toLocaleString();
+            document.getElementById('progress-fill').style.width = `${percentage}%`;
+            document.getElementById('progress-percentage').textContent = `${percentage.toFixed(1)}%`;
+            
+            // 设置描述
+            document.getElementById('event-full-description').textContent = event.full_description || event.description;
+            
+            if (event.venue_details) {
+                document.getElementById('event-venue-details').textContent = `场地详情: ${event.venue_details}`;
+            }
+            
+            // 显示组织者信息
+            if (event.organisation_name) {
+                document.getElementById('org-name').textContent = event.organisation_name;
+                document.getElementById('org-mission').textContent = event.organisation_mission || '致力于创造积极的社会影响';
+                document.getElementById('org-contact').textContent = event.organisation_contact || '请联系活动组织者获取更多信息';
+                document.getElementById('org-description').textContent = event.organisation_description || '一个致力于社会公益的慈善组织。';
+                showElement('organization-card');
+            }
+            
+            // 显示详情容器
+            showElement('event-detail-container');
+            
+            // 更新页面标题
+            document.title = `${event.title} - CharityHub`;
+        }
+
+        // 加载相关活动
+        async function loadRelatedEvents(categoryId, currentEventId) {
+            try {
+                const response = await fetch(`${API_BASE_URL}/events`);
+                const result = await response.json();
+                
+                if (result.success) {
+                    // 过滤出同类别且不是当前活动的其他活动
+                    const relatedEvents = result.data.filter(event => 
+                        event.category_id === categoryId && 
+                        event.id !== parseInt(currentEventId) &&
+                        event.is_active === true
+                    ).slice(0, 3); // 只显示最多3个相关活动
+                    
+                    displayRelatedEvents(relatedEvents);
+                }
+            } catch (error) {
+                console.error('加载相关活动失败:', error);
+            }
+        }
+
+        // 显示相关活动
+        function displayRelatedEvents(events) {
+            const container = document.getElementById('related-events-container');
+            
+            if (events.length === 0) {
+                container.innerHTML = '<p style="text-align: center; width: 100%; color: #666;">暂无相关活动推荐</p>';
+                return;
+            }
+            
+            const eventsHTML = events.map(event => `
+                <div class="related-event-card" onclick="goToEventDetails(${event.id})">
+                    <img src="${event.image_url}" alt="${event.title}" class="related-event-image" onerror="this.src='/images/placeholder.jpg'">
+                    <div class="related-event-content">
+                        <h4 class="related-event-title">${event.title}</h4>
+                        <div class="related-event-meta">
+                            <span>📅 ${formatDate(event.event_date)}</span>
+                            <span>📍 ${event.location}</span>
+                        </div>
+                        <div class="event-category">${event.category_name}</div>
+                    </div>
+                </div>
+            `).join('');
+            
+            container.innerHTML = eventsHTML;
+        }
+
+        // 设置注册按钮
+        function setupRegisterButton() {
+            const registerBtn = document.getElementById('register-btn');
+            registerBtn.addEventListener('click', function() {
+                alert('此功能目前正在建设中。');
+            });
+        }
+    </script>
 </body>
 </html>

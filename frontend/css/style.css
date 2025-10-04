@@ -32,13 +32,23 @@ body {
     height: 100%;
 }
 
-/* 导航栏Logo图标样式 */
+/* 导航栏Logo图标样式 - 艺术字体版本 */
 .nav-logo {
     display: flex;
     align-items: center;
     gap: 0.8rem;
-    font-size: 1.5rem;
-    font-weight: bold;
+    font-size: 1.8rem;
+    font-weight: normal;
+    font-family: 'Pacifico', 'Dancing Script', cursive;
+    color: white;
+    text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+    letter-spacing: 0.5px;
+    transition: all 0.3s ease;
+}
+
+.nav-logo:hover {
+    text-shadow: 2px 2px 6px rgba(0,0,0,0.5);
+    transform: scale(1.02);
 }
 
 .logo-icon {
@@ -47,10 +57,11 @@ body {
     object-fit: contain;
     border-radius: 4px;
     transition: transform 0.3s ease;
+    filter: drop-shadow(1px 1px 2px rgba(0,0,0,0.3));
 }
 
 .logo-icon:hover {
-    transform: scale(1.05);
+    transform: scale(1.1) rotate(5deg);
 }
 
 .nav-menu {
@@ -421,38 +432,70 @@ body {
 }
 
 /* 搜索页面特定样式 */
-.search-hero {
-    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+.search-hero-section {
+    position: relative;
     color: white;
-    padding: 3rem 2rem;
-    border-radius: 10px;
+    padding: 4rem 2rem;
     margin-bottom: 2rem;
-    text-align: center;
+    border-radius: 15px;
+    overflow: hidden;
+    min-height: 500px;
+    display: flex;
+    align-items: center;
 }
 
-.search-hero h1 {
-    font-size: 2.5rem;
+.search-hero-background {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: 
+        linear-gradient(90deg, rgba(44, 62, 80, 0.85) 0%, rgba(44, 62, 80, 0.7) 50%, rgba(44, 62, 80, 0.4) 100%),
+        url('../images/search-hero.jpg') no-repeat center center;
+    background-size: cover;
+    z-index: -1;
+}
+
+.search-hero-content {
+    max-width: 1200px;
+    margin: 0 auto;
+    width: 100%;
+    position: relative;
+    z-index: 2;
+}
+
+.search-hero-text {
+    max-width: 600px;
+    margin-bottom: 2.5rem;
+}
+
+.search-hero-text h1 {
+    font-size: 3rem;
     margin-bottom: 1rem;
+    line-height: 1.2;
+    text-shadow: 2px 2px 4px rgba(0,0,0,0.5);
 }
 
-.search-hero p {
-    font-size: 1.2rem;
+.search-hero-text p {
+    font-size: 1.3rem;
+    line-height: 1.6;
+    text-shadow: 1px 1px 2px rgba(0,0,0,0.5);
     opacity: 0.9;
-    margin-bottom: 2rem;
 }
 
 .search-container {
-    background: white;
+    background: rgba(255, 255, 255, 0.95);
     border-radius: 15px;
-    box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+    box-shadow: 0 10px 30px rgba(0,0,0,0.2);
     padding: 2rem;
-    margin-bottom: 2rem;
+    backdrop-filter: blur(10px);
 }
 
 .search-tabs {
     display: flex;
     margin-bottom: 1.5rem;
-    border-bottom: 2px solid #f0f0f0;
+    border-bottom: 2px solid #e0e0e0;
 }
 
 .search-tab {
@@ -463,6 +506,7 @@ body {
     cursor: pointer;
     transition: all 0.3s;
     position: relative;
+    color: #555;
 }
 
 .search-tab.active {
@@ -726,142 +770,110 @@ body {
     margin-bottom: 1rem;
     color: #3498db;
     text-decoration: none;
+    padding: 0.5rem 1rem;
+    border: 1px solid #3498db;
+    border-radius: 5px;
+    transition: all 0.3s;
 }
 
 .back-link:hover {
-    text-decoration: underline;
+    background: #3498db;
+    color: white;
+    text-decoration: none;
 }
 
-/* 响应式设计 */
-@media (max-width: 768px) {
-    .nav-container {
-        flex-direction: column;
-        gap: 1rem;
-    }
-    
-    .nav-logo {
-        font-size: 1.3rem;
-        gap: 0.5rem;
-    }
-    
-    .logo-icon {
-        height: 28px;
-        width: 28px;
-    }
-
-    .hero-section {
-        padding: 3rem 1rem;
-        min-height: 400px;
-        text-align: center;
-    }
-    
-    .hero-section h2 {
-        font-size: 2.2rem;
-    }
-    
-    .mission-statement {
-        font-size: 1.1rem;
-    }
-    
-    .hero-stats {
-        justify-content: center;
-        gap: 1rem;
-    }
-    
-    .stat-item {
-        padding: 0.8rem 1rem;
-        min-width: 100px;
-    }
-    
-    .stat-number {
-        font-size: 1.5rem;
-    }
-    
-    .hero-background {
-        background: 
-            linear-gradient(rgba(44, 62, 80, 0.8), rgba(44, 62, 80, 0.8)),
-            url('../images/hero-background.jpg') no-repeat center center;
-        background-size: cover;
-    }
-    
-    .hero-content {
-        max-width: 100%;
-    }
-
-    .organizations-section {
-        padding: 2rem 1rem;
-    }
-    
-    .organizations-container {
-        grid-template-columns: 1fr;
-    }
-    
-    .org-header {
-        flex-direction: column;
-        align-items: flex-start;
-    }
-    
-    .org-header h3 {
-        min-width: auto;
-    }
-    
-    .org-info {
-        flex-direction: column;
-        align-items: flex-start;
-    }
-    
-    .org-info .value {
-        margin-left: 0;
-        margin-top: 0.2rem;
-        text-align: left;
-    }
-
-    .search-tabs {
-        flex-direction: column;
-    }
-    
-    .keyword-search {
-        flex-direction: column;
-    }
-    
-    .advanced-search-form {
-        grid-template-columns: 1fr;
-    }
-    
-    .quick-actions {
-        flex-direction: column;
-    }
-    
-    .action-btn {
-        justify-content: center;
-    }
-    
-    .events-grid {
-        grid-template-columns: 1fr;
-    }
-    
-    .main-content {
-        padding: 1rem;
-    }
-    
-    .event-header {
-        flex-direction: column;
-    }
-    
-    .event-meta-details {
-        min-width: 100%;
-    }
+/* 组织信息卡片 */
+.organization-card {
+    background: #f8f9fa;
+    padding: 1.5rem;
+    border-radius: 8px;
+    margin: 2rem 0;
+    border-left: 4px solid #3498db;
 }
 
-@media (max-width: 480px) {
-    .hero-stats {
-        flex-direction: column;
-        align-items: center;
-    }
-    
-    .stat-item {
-        width: 150px;
-    }
+.organization-card h3 {
+    color: #2c3e50;
+    margin-bottom: 1rem;
+}
+
+.organization-info {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 1rem;
+    margin-bottom: 1rem;
+}
+
+.org-info-item {
+    display: flex;
+    flex-direction: column;
+}
+
+.org-info-label {
+    font-weight: bold;
+    color: #555;
+    font-size: 0.9rem;
+    margin-bottom: 0.3rem;
+}
+
+.org-info-value {
+    color: #2c3e50;
+}
+
+/* 相关活动推荐 */
+.related-events {
+    margin-top: 3rem;
+    padding-top: 2rem;
+    border-top: 2px solid #f1f2f6;
+}
+
+.related-events h3 {
+    color: #2c3e50;
+    margin-bottom: 1.5rem;
+    text-align: center;
+}
+
+.related-events-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 1.5rem;
+}
+
+.related-event-card {
+    background: white;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+    overflow: hidden;
+    transition: transform 0.3s;
+    cursor: pointer;
+}
+
+.related-event-card:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 4px 8px rgba(0,0,0,0.15);
+}
+
+.related-event-image {
+    width: 100%;
+    height: 150px;
+    object-fit: cover;
+}
+
+.related-event-content {
+    padding: 1rem;
+}
+
+.related-event-title {
+    font-size: 1.1rem;
+    color: #2c3e50;
+    margin-bottom: 0.5rem;
+}
+
+.related-event-meta {
+    display: flex;
+    justify-content: space-between;
+    font-size: 0.8rem;
+    color: #666;
+    margin-bottom: 0.5rem;
 }
 
 /* 加入我们版块样式 */
@@ -1023,7 +1035,133 @@ body {
 }
 
 /* 响应式设计 */
-@media (max-width: 968px) {
+@media (max-width: 768px) {
+    .nav-container {
+        flex-direction: column;
+        gap: 1rem;
+    }
+    
+    .nav-logo {
+        font-size: 1.5rem;
+        gap: 0.5rem;
+    }
+    
+    .logo-icon {
+        height: 28px;
+        width: 28px;
+    }
+
+    .hero-section {
+        padding: 3rem 1rem;
+        min-height: 400px;
+        text-align: center;
+    }
+    
+    .hero-section h2 {
+        font-size: 2.2rem;
+    }
+    
+    .mission-statement {
+        font-size: 1.1rem;
+    }
+    
+    .hero-stats {
+        justify-content: center;
+        gap: 1rem;
+    }
+    
+    .stat-item {
+        padding: 0.8rem 1rem;
+        min-width: 100px;
+    }
+    
+    .stat-number {
+        font-size: 1.5rem;
+    }
+    
+    .hero-background {
+        background: 
+            linear-gradient(rgba(44, 62, 80, 0.8), rgba(44, 62, 80, 0.8)),
+            url('../images/hero-background.jpg') no-repeat center center;
+        background-size: cover;
+    }
+    
+    .hero-content {
+        max-width: 100%;
+    }
+
+    .organizations-section {
+        padding: 2rem 1rem;
+    }
+    
+    .organizations-container {
+        grid-template-columns: 1fr;
+    }
+    
+    .org-header {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+    
+    .org-header h3 {
+        min-width: auto;
+    }
+    
+    .org-info {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+    
+    .org-info .value {
+        margin-left: 0;
+        margin-top: 0.2rem;
+        text-align: left;
+    }
+
+    .search-tabs {
+        flex-direction: column;
+    }
+    
+    .keyword-search {
+        flex-direction: column;
+    }
+    
+    .advanced-search-form {
+        grid-template-columns: 1fr;
+    }
+    
+    .quick-actions {
+        flex-direction: column;
+    }
+    
+    .action-btn {
+        justify-content: center;
+    }
+    
+    .events-grid {
+        grid-template-columns: 1fr;
+    }
+    
+    .main-content {
+        padding: 1rem;
+    }
+    
+    .event-header {
+        flex-direction: column;
+    }
+    
+    .event-meta-details {
+        min-width: 100%;
+    }
+    
+    .organization-info {
+        grid-template-columns: 1fr;
+    }
+    
+    .related-events-grid {
+        grid-template-columns: 1fr;
+    }
+    
     .join-us-container {
         flex-direction: column;
         gap: 2rem;
@@ -1036,12 +1174,6 @@ body {
     
     .join-us-content h2 {
         font-size: 2rem;
-    }
-}
-
-@media (max-width: 768px) {
-    .join-us-section {
-        padding: 3rem 1rem;
     }
     
     .join-us-stats {
@@ -1061,9 +1193,31 @@ body {
     .benefit-icon {
         align-self: center;
     }
+    
+    .search-hero-section {
+        padding: 3rem 1rem;
+        min-height: 400px;
+    }
+    
+    .search-hero-text h1 {
+        font-size: 2.2rem;
+    }
+    
+    .search-hero-text p {
+        font-size: 1.1rem;
+    }
 }
 
 @media (max-width: 480px) {
+    .hero-stats {
+        flex-direction: column;
+        align-items: center;
+    }
+    
+    .stat-item {
+        width: 150px;
+    }
+    
     .join-us-actions {
         flex-direction: column;
     }
