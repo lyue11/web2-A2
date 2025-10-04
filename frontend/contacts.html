@@ -1,0 +1,566 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>联系我们 - CharityHub</title>
+    <link rel="stylesheet" href="css/style.css">
+    
+    <!-- Favicon 设置 -->
+    <link rel="icon" type="image/x-icon" href="images/favicon.ico">
+    <link rel="icon" type="image/png" sizes="32x32" href="images/favicon-32x32.png">
+    <link rel="apple-touch-icon" sizes="180x180" href="images/favicon-32x32.png">
+    <meta name="theme-color" content="#2c3e50">
+    
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Pacifico&family=Dancing+Script:wght@700&family=Sacramento&family=Playfair+Display:wght@700&display=swap" rel="stylesheet">
+    
+    <style>
+        /* 联系页面专用样式 */
+        .contact-hero-section {
+            position: relative;
+            color: white;
+            padding: 4rem 2rem;
+            margin-bottom: 2rem;
+            border-radius: 15px;
+            overflow: hidden;
+            min-height: 400px;
+            display: flex;
+            align-items: center;
+            text-align: center;
+        }
+
+        .contact-hero-background {
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: 
+                linear-gradient(135deg, rgba(44, 62, 80, 0.9) 0%, rgba(44, 62, 80, 0.7) 100%),
+                url('../images/contact-hero.jpg') no-repeat center center;
+            background-size: cover;
+            z-index: -1;
+        }
+
+        .contact-hero-content {
+            max-width: 800px;
+            margin: 0 auto;
+            position: relative;
+            z-index: 2;
+        }
+
+        .contact-hero-content h1 {
+            font-size: 3rem;
+            margin-bottom: 1rem;
+            line-height: 1.2;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.5);
+        }
+
+        .contact-hero-content p {
+            font-size: 1.3rem;
+            line-height: 1.6;
+            text-shadow: 1px 1px 2px rgba(0,0,0,0.5);
+            opacity: 0.9;
+        }
+
+        /* 联系信息水平交替布局 */
+        .contact-section {
+            margin: 4rem 0;
+        }
+
+        .contact-item {
+            display: flex;
+            align-items: center;
+            margin-bottom: 4rem;
+            background: white;
+            border-radius: 15px;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.1);
+            overflow: hidden;
+        }
+
+        .contact-item.reverse {
+            flex-direction: row-reverse;
+        }
+
+        .contact-image {
+            flex: 1;
+            min-height: 300px;
+            background-size: cover;
+            background-position: center;
+        }
+
+        .contact-content {
+            flex: 1;
+            padding: 3rem;
+        }
+
+        .contact-content h2 {
+            color: #2c3e50;
+            margin-bottom: 1.5rem;
+            font-size: 2rem;
+        }
+
+        .contact-info {
+            color: #666;
+            line-height: 1.6;
+        }
+
+        .contact-info p {
+            margin-bottom: 1rem;
+        }
+
+        .info-highlight {
+            font-weight: bold;
+            color: #3498db;
+        }
+
+        /* 联系表单 */
+        .contact-form-section {
+            background: white;
+            border-radius: 15px;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.1);
+            padding: 3rem;
+            margin: 3rem 0;
+        }
+
+        .contact-form-section h2 {
+            text-align: center;
+            color: #2c3e50;
+            margin-bottom: 2rem;
+        }
+
+        .form-group {
+            margin-bottom: 1.5rem;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 0.5rem;
+            font-weight: 600;
+            color: #2c3e50;
+        }
+
+        .form-group input,
+        .form-group textarea,
+        .form-group select {
+            width: 100%;
+            padding: 0.8rem;
+            border: 2px solid #e0e0e0;
+            border-radius: 8px;
+            font-size: 1rem;
+            transition: border-color 0.3s;
+        }
+
+        .form-group input:focus,
+        .form-group textarea:focus,
+        .form-group select:focus {
+            outline: none;
+            border-color: #3498db;
+            box-shadow: 0 0 0 3px rgba(52, 152, 219, 0.1);
+        }
+
+        .form-group textarea {
+            height: 150px;
+            resize: vertical;
+        }
+
+        .submit-btn {
+            background: #3498db;
+            color: white;
+            border: none;
+            padding: 1rem 2rem;
+            font-size: 1.1rem;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+            width: 100%;
+        }
+
+        .submit-btn:hover {
+            background: #2980b9;
+        }
+
+        /* 办公地点 */
+        .office-location {
+            background: #f8f9fa;
+            border-radius: 15px;
+            padding: 3rem;
+            margin: 3rem 0;
+        }
+
+        .office-location h2 {
+            text-align: center;
+            color: #2c3e50;
+            margin-bottom: 2rem;
+        }
+
+        .location-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+        }
+
+        .location-card {
+            background: white;
+            border-radius: 10px;
+            padding: 2rem;
+            box-shadow: 0 3px 10px rgba(0,0,0,0.1);
+        }
+
+        .location-card h3 {
+            color: #2c3e50;
+            margin-bottom: 1rem;
+        }
+
+        .location-info {
+            color: #666;
+            line-height: 1.6;
+        }
+
+        /* 常见问题 */
+        .faq-section {
+            margin: 3rem 0;
+        }
+
+        .faq-section h2 {
+            text-align: center;
+            color: #2c3e50;
+            margin-bottom: 2rem;
+        }
+
+        .faq-item {
+            background: white;
+            border-radius: 10px;
+            margin-bottom: 1rem;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+            overflow: hidden;
+        }
+
+        .faq-question {
+            padding: 1.5rem;
+            background: #f8f9fa;
+            border: none;
+            width: 100%;
+            text-align: left;
+            font-size: 1.1rem;
+            font-weight: 600;
+            color: #2c3e50;
+            cursor: pointer;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .faq-answer {
+            padding: 0 1.5rem;
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.3s ease, padding 0.3s ease;
+        }
+
+        .faq-answer.active {
+            padding: 1.5rem;
+            max-height: 500px;
+        }
+
+        /* 响应式设计 */
+        @media (max-width: 768px) {
+            .contact-hero-section {
+                padding: 3rem 1rem;
+                min-height: 300px;
+            }
+            
+            .contact-hero-content h1 {
+                font-size: 2.2rem;
+            }
+            
+            .contact-hero-content p {
+                font-size: 1.1rem;
+            }
+            
+            .contact-item {
+                flex-direction: column;
+            }
+            
+            .contact-item.reverse {
+                flex-direction: column;
+            }
+            
+            .contact-image {
+                min-height: 200px;
+                width: 100%;
+            }
+            
+            .contact-content {
+                padding: 2rem;
+            }
+            
+            .contact-form-section {
+                padding: 2rem;
+            }
+            
+            .location-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- 导航菜单 -->
+    <nav class="navbar">
+        <div class="nav-container">
+            <h1 class="nav-logo">
+                <img src="images/logo-icon.png" alt="CharityHub" class="logo-icon">
+                CharityHub
+            </h1>
+            <ul class="nav-menu">
+                <li><a href="index.html" class="nav-link">首页</a></li>
+                <li><a href="search.html" class="nav-link">搜索活动</a></li>
+                <li><a href="team.html" class="nav-link">团队</a></li>
+                <li><a href="contacts.html" class="nav-link active">联系我们</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <!-- 主要内容区域 -->
+    <main class="main-content">
+        <!-- 联系英雄区域 -->
+        <section class="contact-hero-section">
+            <div class="contact-hero-background"></div>
+            <div class="contact-hero-content">
+                <h1>联系我们</h1>
+                <p>我们期待听到您的声音，共同为慈善事业贡献力量</p>
+            </div>
+        </section>
+
+        <!-- 联系信息 - 水平交替布局 -->
+        <section class="container contact-section">
+            <!-- 电子邮件 - 图片在左 -->
+            <div class="contact-item">
+                <div class="contact-image" style="background-image: url('images/contact-email.jpg')"></div>
+                <div class="contact-content">
+                    <h2>电子邮件</h2>
+                    <div class="contact-info">
+                        <p><span class="info-highlight">一般咨询:</span></p>
+                        <p>contact@hopelight.org</p>
+                        <p><span class="info-highlight">志愿者申请:</span></p>
+                        <p>volunteer@hopelight.org</p>
+                        <p><span class="info-highlight">合作伙伴:</span></p>
+                        <p>partnership@hopelight.org</p>
+                        <p><span class="info-highlight">捐款咨询:</span></p>
+                        <p>donation@hopelight.org</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 电话联系 - 图片在右 -->
+            <div class="contact-item reverse">
+                <div class="contact-image" style="background-image: url('images/contact-phone.jpg')"></div>
+                <div class="contact-content">
+                    <h2>电话联系</h2>
+                    <div class="contact-info">
+                        <p><span class="info-highlight">主要电话:</span></p>
+                        <p>+61 2 1234 5678</p>
+                        <p><span class="info-highlight">志愿者热线:</span></p>
+                        <p>+61 2 1234 5679</p>
+                        <p><span class="info-highlight">捐款专线:</span></p>
+                        <p>+61 2 1234 5680</p>
+                        <p><span class="info-highlight">工作时间:</span></p>
+                        <p>周一至周五 9:00-17:00</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 办公地址 - 图片在左 -->
+            <div class="contact-item">
+                <div class="contact-image" style="background-image: url('images/contact-address.jpg')"></div>
+                <div class="contact-content">
+                    <h2>办公地址</h2>
+                    <div class="contact-info">
+                        <p><span class="info-highlight">总部地址:</span></p>
+                        <p>悉尼市中心123号</p>
+                        <p>Sydney NSW 2000</p>
+                        <p>澳大利亚</p>
+                        <p><span class="info-highlight">墨尔本办事处:</span></p>
+                        <p>墨尔本绿色大道456号</p>
+                        <p>Melbourne VIC 3000</p>
+                        <p><span class="info-highlight">办公时间:</span></p>
+                        <p>周一至周五 9:00-17:00</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 社交媒体 - 图片在右 -->
+            <div class="contact-item reverse">
+                <div class="contact-image" style="background-image: url('images/contact-social.jpg')"></div>
+                <div class="contact-content">
+                    <h2>社交媒体</h2>
+                    <div class="contact-info">
+                        <p><span class="info-highlight">Facebook:</span></p>
+                        <p>/HopeLightCharity</p>
+                        <p><span class="info-highlight">Instagram:</span></p>
+                        <p>@hopelight_charity</p>
+                        <p><span class="info-highlight">Twitter:</span></p>
+                        <p>@HopeLightOrg</p>
+                        <p><span class="info-highlight">LinkedIn:</span></p>
+                        <p>/company/hopelight-charity</p>
+                        <p><span class="info-highlight">微信公众号:</span></p>
+                        <p>HopeLightCharity</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- 联系表单 -->
+        <section class="contact-form-section">
+            <h2>发送消息</h2>
+            <form id="contact-form">
+                <div class="form-group">
+                    <label for="name">姓名 *</label>
+                    <input type="text" id="name" name="name" required>
+                </div>
+
+                <div class="form-group">
+                    <label for="email">电子邮件 *</label>
+                    <input type="email" id="email" name="email" required>
+                </div>
+
+                <div class="form-group">
+                    <label for="phone">电话号码</label>
+                    <input type="tel" id="phone" name="phone">
+                </div>
+
+                <div class="form-group">
+                    <label for="subject">主题 *</label>
+                    <select id="subject" name="subject" required>
+                        <option value="">请选择主题</option>
+                        <option value="general">一般咨询</option>
+                        <option value="volunteer">志愿者申请</option>
+                        <option value="donation">捐款咨询</option>
+                        <option value="partnership">合作伙伴</option>
+                        <option value="event">活动相关</option>
+                        <option value="other">其他</option>
+                    </select>
+                </div>
+
+                <div class="form-group">
+                    <label for="message">消息内容 *</label>
+                    <textarea id="message" name="message" placeholder="请详细描述您的问题或需求..." required></textarea>
+                </div>
+
+                <button type="submit" class="submit-btn">发送消息</button>
+            </form>
+        </section>
+
+        <!-- 办公地点 -->
+        <section class="office-location">
+            <h2>我们的办公地点</h2>
+            <div class="location-grid">
+                <div class="location-card">
+                    <h3>悉尼总部</h3>
+                    <div class="location-info">
+                        <p><strong>地址:</strong></p>
+                        <p>悉尼市中心123号</p>
+                        <p>Sydney NSW 2000</p>
+                        <p>澳大利亚</p>
+                        <p><strong>电话:</strong> +61 2 1234 5678</p>
+                        <p><strong>邮箱:</strong> sydney@hopelight.org</p>
+                    </div>
+                </div>
+
+                <div class="location-card">
+                    <h3>墨尔本办事处</h3>
+                    <div class="location-info">
+                        <p><strong>地址:</strong></p>
+                        <p>墨尔本绿色大道456号</p>
+                        <p>Melbourne VIC 3000</p>
+                        <p>澳大利亚</p>
+                        <p><strong>电话:</strong> +61 3 9876 5432</p>
+                        <p><strong>邮箱:</strong> melbourne@hopelight.org</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- 常见问题 -->
+        <section class="faq-section">
+            <h2>常见问题</h2>
+            
+            <div class="faq-item">
+                <button class="faq-question">
+                    如何成为志愿者？
+                    <span>+</span>
+                </button>
+                <div class="faq-answer">
+                    <p>您可以通过我们的网站申请成为志愿者，填写志愿者申请表后，我们的志愿者协调员会在3-5个工作日内与您联系。我们提供全面的志愿者培训，确保您能够胜任相关工作。</p>
+                </div>
+            </div>
+
+            <div class="faq-item">
+                <button class="faq-question">
+                    捐款如何使用？
+                    <span>+</span>
+                </button>
+                <div class="faq-answer">
+                    <p>我们承诺至少85%的捐款直接用于慈善项目。具体分配如下：85%用于项目执行，10%用于行政费用，5%用于筹款活动。我们每年发布详细的财务报告，确保资金使用的透明度。</p>
+                </div>
+            </div>
+
+            <div class="faq-item">
+                <button class="faq-question">
+                    如何查询活动信息？
+                    <span>+</span>
+                </button>
+                <div class="faq-answer">
+                    <p>您可以通过网站的"搜索活动"页面查看所有当前和即将举行的活动。您可以按日期、地点和类别筛选活动。每个活动页面都包含详细的信息和在线注册功能。</p>
+                </div>
+            </div>
+
+            <div class="faq-item">
+                <button class="faq-question">
+                    企业如何合作？
+                    <span>+</span>
+                </button>
+                <div class="faq-answer">
+                    <p>我们欢迎企业与我们一起开展慈善合作。合作方式包括企业捐赠、员工志愿者活动、活动赞助等。请通过partnership@hopelight.org联系我们的合作伙伴团队，我们将为您量身定制合作方案。</p>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <script src="js/main.js"></script>
+    <script>
+        // 联系表单处理
+        document.getElementById('contact-form').addEventListener('submit', function(e) {
+            e.preventDefault();
+            alert('感谢您的消息！我们将在2-3个工作日内回复您。');
+            this.reset();
+        });
+
+        // 常见问题切换
+        document.querySelectorAll('.faq-question').forEach(button => {
+            button.addEventListener('click', function() {
+                const answer = this.nextElementSibling;
+                const isActive = answer.classList.contains('active');
+                
+                // 关闭所有其他答案
+                document.querySelectorAll('.faq-answer').forEach(item => {
+                    item.classList.remove('active');
+                });
+                document.querySelectorAll('.faq-question span').forEach(span => {
+                    span.textContent = '+';
+                });
+                
+                // 切换当前答案
+                if (!isActive) {
+                    answer.classList.add('active');
+                    this.querySelector('span').textContent = '−';
+                }
+            });
+        });
+    </script>
+</body>
+</html>
