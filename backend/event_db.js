@@ -1,46 +1,46 @@
 // =============================================
 // PROG2002 Assessment 2 - Database Connection
-// 数据库连接配置文件
+// Database connection configuration file
 // =============================================
 
 const mysql = require('mysql2');
 
-// 创建数据库连接池（推荐使用连接池提高性能）
+// Create database connection pool (recommended for better performance)
 const pool = mysql.createPool({
     host: 'localhost',
     user: 'root',
-    password: '',  // XAMPP默认空密码（重要修改！）
+    password: '',  // XAMPP default empty password (Important modification!)
     database: 'charityevents_db',
     waitForConnections: true,
     connectionLimit: 10,
     queueLimit: 0
 });
 
-// 将基于回调的池转换为Promise版本，以便使用async/await
+// Convert callback-based pool to Promise version for async/await usage
 const promisePool = pool.promise();
 
-// 测试数据库连接的函数
+// Function to test database connection
 async function testConnection() {
     try {
         const [rows, fields] = await promisePool.query('SELECT 1 + 1 AS solution');
-        console.log('✅ 数据库连接成功! Solution:', rows[0].solution);
+        console.log('✅ Database connection successful! Solution:', rows[0].solution);
         return true;
     } catch (error) {
-        console.error('❌ 数据库连接失败:', error.message);
+        console.error('❌ Database connection failed:', error.message);
         return false;
     }
 }
 
-// 执行数据库初始化（创建表和插入样本数据）
+// Execute database initialization (create tables and insert sample data)
 async function initializeDatabase() {
     try {
-        console.log('🔄 开始初始化数据库...');
+        console.log('🔄 Starting database initialization...');
         
-        // 读取并执行schema.sql文件
-        // 注意：在实际项目中，我们通常使用外部SQL文件
-        // 这里简化处理，直接使用之前设计的SQL语句
+        // Read and execute schema.sql file
+        // Note: In actual projects, we usually use external SQL files
+        // Simplified here, using previously designed SQL statements directly
         
-        // 检查表是否存在，如果不存在则创建
+        // Check if tables exist, create if not
         const [tables] = await promisePool.query(`
             SELECT TABLE_NAME 
             FROM information_schema.TABLES 
@@ -48,20 +48,20 @@ async function initializeDatabase() {
         `);
         
         if (tables.length === 0) {
-            console.log('📊 数据库为空，需要执行初始化SQL...');
-            console.log('💡 提示：请先手动执行 database/schema.sql 文件来创建数据库结构');
+            console.log('📊 Database is empty, need to execute initialization SQL...');
+            console.log('💡 Tip: Please manually execute database/schema.sql file to create database structure');
         } else {
-            console.log('✅ 数据库表已存在:', tables.map(t => t.TABLE_NAME).join(', '));
+            console.log('✅ Database tables exist:', tables.map(t => t.TABLE_NAME).join(', '));
         }
         
         return true;
     } catch (error) {
-        console.error('❌ 数据库初始化失败:', error.message);
+        console.error('❌ Database initialization failed:', error.message);
         return false;
     }
 }
 
-// 获取活动数据的函数（将在API中使用）
+// Function to get event data (will be used in API)
 async function getEvents() {
     try {
         const [rows] = await promisePool.query(`
@@ -74,12 +74,12 @@ async function getEvents() {
         `);
         return rows;
     } catch (error) {
-        console.error('获取活动数据失败:', error);
+        console.error('Failed to get event data:', error);
         throw error;
     }
 }
 
-// 根据ID获取单个活动详情
+// Get single event details by ID
 async function getEventById(eventId) {
     try {
         const [rows] = await promisePool.query(`
@@ -92,12 +92,12 @@ async function getEventById(eventId) {
         
         return rows.length > 0 ? rows[0] : null;
     } catch (error) {
-        console.error('获取活动详情失败:', error);
+        console.error('Failed to get event details:', error);
         throw error;
     }
 }
 
-// 搜索活动的函数
+// Function to search events
 async function searchEvents(criteria) {
     try {
         let query = `
@@ -110,7 +110,7 @@ async function searchEvents(criteria) {
         
         const params = [];
         
-        // 根据条件动态构建查询
+        // Dynamically build query based on criteria
         if (criteria.category) {
             query += ' AND c.name LIKE ?';
             params.push(`%${criteria.category}%`);
@@ -131,38 +131,38 @@ async function searchEvents(criteria) {
         const [rows] = await promisePool.query(query, params);
         return rows;
     } catch (error) {
-        console.error('搜索活动失败:', error);
+        console.error('Failed to search events:', error);
         throw error;
     }
 }
 
-// 获取所有分类
+// Get all categories
 async function getCategories() {
     try {
         const [rows] = await promisePool.query('SELECT * FROM categories ORDER BY name');
         return rows;
     } catch (error) {
-        console.error('获取分类失败:', error);
+        console.error('Failed to get categories:', error);
         throw error;
     }
 }
 
-// 如果直接运行这个文件，则测试连接
+// Test connection if this file is run directly
 if (require.main === module) {
     async function main() {
-        console.log('🧪 测试数据库连接...');
+        console.log('🧪 Testing database connection...');
         const connected = await testConnection();
         
         if (connected) {
             await initializeDatabase();
             
-            // 测试获取数据
-            console.log('📋 获取活动数据示例:');
+            // Test data retrieval
+            console.log('📋 Getting sample event data:');
             const events = await getEvents();
-            console.log(`找到 ${events.length} 个活动`);
+            console.log(`Found ${events.length} events`);
             
             if (events.length > 0) {
-                console.log('第一个活动:', events[0].title);
+                console.log('First event:', events[0].title);
             }
         }
     }
@@ -170,7 +170,7 @@ if (require.main === module) {
     main().catch(console.error);
 }
 
-// 导出数据库连接和函数
+// Export database connection and functions
 module.exports = {
     pool: promisePool,
     testConnection,

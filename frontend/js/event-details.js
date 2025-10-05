@@ -1,4 +1,4 @@
-// 活动详情页面JavaScript逻辑 - 增强版
+// Event Details Page JavaScript Logic - Enhanced Version
 
 let currentEvent = null;
 
@@ -8,7 +8,7 @@ document.addEventListener('DOMContentLoaded', function() {
     setupRegisterButton();
 });
 
-// 设置返回按钮功能
+// Set up back button functionality
 function setupBackButton() {
     const backLink = document.querySelector('.back-link');
     backLink.addEventListener('click', function(e) {
@@ -21,7 +21,7 @@ function setupBackButton() {
     });
 }
 
-// 加载活动详情
+// Load event details
 async function loadEventDetails() {
     try {
         showElement('event-loading');
@@ -32,7 +32,7 @@ async function loadEventDetails() {
         const eventId = getUrlParameter('id');
         
         if (!eventId) {
-            throw new Error('未指定活动ID');
+            throw new Error('Event ID not specified');
         }
         
         const result = await apiCall(`${API_BASE_URL}/events/${eventId}`);
@@ -42,20 +42,20 @@ async function loadEventDetails() {
             displayEventDetails(currentEvent);
             loadRelatedEvents(currentEvent.category_id, eventId);
         } else {
-            throw new Error('活动数据加载失败');
+            throw new Error('Event data loading failed');
         }
         
     } catch (error) {
-        console.error('加载活动详情失败:', error);
-        showError('event-error', `加载失败: ${error.message}`);
+        console.error('Failed to load event details:', error);
+        showError('event-error', `Load failed: ${error.message}`);
     } finally {
         hideElement('event-loading');
     }
 }
 
-// 显示活动详情
+// Display event details
 function displayEventDetails(event) {
-    // 设置基本信息
+    // Set basic information
     document.getElementById('event-title').textContent = event.title;
     document.getElementById('event-category').textContent = event.category_name;
     document.getElementById('event-date').textContent = formatDate(event.event_date);
@@ -63,17 +63,17 @@ function displayEventDetails(event) {
     document.getElementById('event-location').textContent = event.location;
     document.getElementById('event-organisation').textContent = event.organisation_name;
     
-    // 设置票务信息
+    // Set ticket information
     const priceElement = document.getElementById('event-price');
     if (event.is_free) {
-        priceElement.textContent = '免费活动';
+        priceElement.textContent = 'Free Event';
         priceElement.style.color = '#27ae60';
     } else {
         priceElement.textContent = `$${event.ticket_price}`;
         priceElement.style.color = '#e74c3c';
     }
     
-    // 设置图片
+    // Set image
     const heroImage = document.getElementById('event-hero-image');
     heroImage.src = event.image_url;
     heroImage.alt = event.title;
@@ -81,32 +81,32 @@ function displayEventDetails(event) {
         this.src = '/images/placeholder.jpg';
     };
     
-    // 设置筹款进度
+    // Set up fundraising progress
     setupFundraisingProgress(event);
     
-    // 设置描述
+    // Set description
     document.getElementById('event-full-description').textContent = event.full_description || event.description;
     
     if (event.venue_details) {
-        document.getElementById('event-venue-details').textContent = `场地详情: ${event.venue_details}`;
+        document.getElementById('event-venue-details').textContent = `Venue Details: ${event.venue_details}`;
     } else {
         document.getElementById('event-venue-details').style.display = 'none';
     }
     
-    // 显示组织者信息
+    // Display organizer information
     setupOrganizationInfo(event);
     
-    // 显示详情容器
+    // Display detail container
     showElement('event-detail-container');
     
-    // 更新页面标题
+    // Update page title
     document.title = `${event.title} - CharityHub`;
     
-    // 更新URL但不刷新页面
+    // Update URL without refreshing page
     updateURL(event.id);
 }
 
-// 设置筹款进度
+// Set up fundraising progress
 function setupFundraisingProgress(event) {
     const goal = parseFloat(event.fundraising_goal) || 0;
     const current = parseFloat(event.current_amount) || 0;
@@ -118,29 +118,29 @@ function setupFundraisingProgress(event) {
     const progressFill = document.getElementById('progress-fill');
     progressFill.style.width = `${percentage}%`;
     
-    // 根据进度设置颜色
+    // Set color based on progress
     if (percentage >= 100) {
-        progressFill.style.background = '#27ae60'; // 绿色 - 已完成
+        progressFill.style.background = '#27ae60'; // Green - Completed
     } else if (percentage >= 75) {
-        progressFill.style.background = '#3498db'; // 蓝色 - 接近完成
+        progressFill.style.background = '#3498db'; // Blue - Close to completion
     } else if (percentage >= 50) {
-        progressFill.style.background = '#f39c12'; // 橙色 - 过半
+        progressFill.style.background = '#f39c12'; // Orange - Halfway
     } else {
-        progressFill.style.background = '#e74c3c'; // 红色 - 刚开始
+        progressFill.style.background = '#e74c3c'; // Red - Just started
     }
     
     document.getElementById('progress-percentage').textContent = `${percentage.toFixed(1)}%`;
     
-    // 添加筹款状态说明
+    // Add fundraising status description
     let statusText = '';
     if (percentage >= 100) {
-        statusText = '🎉 筹款目标已达成！';
+        statusText = '🎉 Fundraising goal achieved!';
     } else if (percentage >= 75) {
-        statusText = '🚀 接近目标，继续加油！';
+        statusText = '🚀 Close to target, keep going!';
     } else if (percentage >= 50) {
-        statusText = '👍 已完成过半，感谢支持！';
+        statusText = '👍 Halfway there, thank you for your support!';
     } else {
-        statusText = '🌟 刚刚开始，需要您的帮助！';
+        statusText = '🌟 Just started, we need your help!';
     }
     
     const statusElement = document.createElement('div');
@@ -157,32 +157,32 @@ function setupFundraisingProgress(event) {
     }
 }
 
-// 设置组织者信息
+// Set up organizer information
 function setupOrganizationInfo(event) {
     if (event.organisation_name) {
         document.getElementById('org-name').textContent = event.organisation_name;
-        document.getElementById('org-mission').textContent = event.mission_statement || '致力于创造积极的社会影响';
+        document.getElementById('org-mission').textContent = event.mission_statement || 'Committed to creating positive social impact';
         
-        // 构建联系方式
+        // Build contact information
         let contactInfo = [];
         if (event.contact_email) contactInfo.push(`📧 ${event.contact_email}`);
         if (event.contact_phone) contactInfo.push(`📞 ${event.contact_phone}`);
         if (event.address) contactInfo.push(`📍 ${event.address}`);
         
-        document.getElementById('org-contact').textContent = contactInfo.join(' | ') || '请联系活动组织者获取更多信息';
-        document.getElementById('org-description').textContent = event.organisation_description || '一个致力于社会公益的慈善组织。';
+        document.getElementById('org-contact').textContent = contactInfo.join(' | ') || 'Please contact the event organizer for more information';
+        document.getElementById('org-description').textContent = event.organisation_description || 'A charity organization dedicated to social welfare.';
         
         showElement('organization-card');
     }
 }
 
-// 更新URL
+// Update URL
 function updateURL(eventId) {
     const newUrl = `${window.location.pathname}?id=${eventId}`;
     window.history.replaceState({ path: newUrl }, '', newUrl);
 }
 
-// 加载相关活动
+// Load related events
 async function loadRelatedEvents(categoryId, currentEventId) {
     try {
         const result = await apiCall(`${API_BASE_URL}/events`);
@@ -197,12 +197,12 @@ async function loadRelatedEvents(categoryId, currentEventId) {
             displayRelatedEvents(relatedEvents);
         }
     } catch (error) {
-        console.error('加载相关活动失败:', error);
+        console.error('Failed to load related events:', error);
         hideRelatedEventsSection();
     }
 }
 
-// 显示相关活动
+// Display related events
 function displayRelatedEvents(events) {
     const container = document.getElementById('related-events-container');
     
@@ -237,7 +237,7 @@ function displayRelatedEvents(events) {
     container.innerHTML = eventsHTML;
 }
 
-// 隐藏相关活动区域
+// Hide related events section
 function hideRelatedEventsSection() {
     const relatedEventsSection = document.querySelector('.related-events');
     if (relatedEventsSection) {
@@ -245,11 +245,11 @@ function hideRelatedEventsSection() {
     }
 }
 
-// 设置注册按钮
+// Set up register button
 function setupRegisterButton() {
     const registerBtn = document.getElementById('register-btn');
     registerBtn.addEventListener('click', function() {
-        // 显示更友好的提示
+        // Display more friendly prompt
         const modal = document.createElement('div');
         modal.style.position = 'fixed';
         modal.style.top = '0';
@@ -265,11 +265,11 @@ function setupRegisterButton() {
         modal.innerHTML = `
             <div style="background: white; padding: 2rem; border-radius: 10px; text-align: center; max-width: 400px;">
                 <div style="font-size: 3rem; margin-bottom: 1rem;">🚧</div>
-                <h3 style="margin-bottom: 1rem; color: #2c3e50;">功能正在建设中</h3>
-                <p style="margin-bottom: 1.5rem; color: #666;">报名功能即将推出，敬请期待！</p>
+                <h3 style="margin-bottom: 1rem; color: #2c3e50;">Feature Under Construction</h3>
+                <p style="margin-bottom: 1.5rem; color: #666;">Registration feature coming soon, stay tuned!</p>
                 <button onclick="this.parentElement.parentElement.remove()" 
                         style="background: #3498db; color: white; border: none; padding: 0.7rem 1.5rem; 
-                               border-radius: 5px; cursor: pointer;">确定</button>
+                               border-radius: 5px; cursor: pointer;">OK</button>
             </div>
         `;
         
@@ -277,33 +277,33 @@ function setupRegisterButton() {
     });
 }
 
-// 活动状态判断函数
+// Event status determination function
 function getEventStatus(event) {
     const eventDate = new Date(event.event_date);
     const today = new Date();
     today.setHours(0, 0, 0, 0);
     
     if (eventDate < today) {
-        return { text: '已结束', style: 'background: #7f8c8d; color: white;' };
+        return { text: 'Ended', style: 'background: #7f8c8d; color: white;' };
     } else if (eventDate.getTime() === today.getTime()) {
-        return { text: '今天', style: 'background: #e74c3c; color: white;' };
+        return { text: 'Today', style: 'background: #e74c3c; color: white;' };
     } else if ((eventDate - today) / (1000 * 60 * 60 * 24) <= 7) {
-        return { text: '即将开始', style: 'background: #f39c12; color: white;' };
+        return { text: 'Coming Soon', style: 'background: #f39c12; color: white;' };
     } else {
-        return { text: '即将开始', style: 'background: #27ae60; color: white;' };
+        return { text: 'Upcoming', style: 'background: #27ae60; color: white;' };
     }
 }
 
-// 添加分享功能
+// Add sharing functionality
 function setupSharing() {
-    // 可以在这里添加社交媒体分享功能
-    console.log('分享功能准备就绪');
+    // Can add social media sharing functionality here
+    console.log('Sharing functionality ready');
 }
 
-// 页面可见性变化时刷新数据
+// Refresh data when page visibility changes
 document.addEventListener('visibilitychange', function() {
     if (!document.hidden && currentEvent) {
-        // 当页面重新可见时，刷新当前活动数据
+        // Refresh current event data when page becomes visible again
         loadEventDetails();
     }
 });

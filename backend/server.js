@@ -10,16 +10,16 @@ const db = require('./event_db');
 const app = express();
 const PORT = process.env.PORT || 3000;
 
-// 中间件配置
-app.use(cors()); // 允许跨域请求
-app.use(express.json()); // 解析JSON请求体
-app.use(express.static('../frontend')); // 提供前端静态文件服务
+// Middleware configuration
+app.use(cors()); // Allow cross-origin requests
+app.use(express.json()); // Parse JSON request body
+app.use(express.static('../frontend')); // Serve frontend static files
 
 // =============================================
-// API路由
+// API Routes
 // =============================================
 
-// 首页API - 获取所有活跃活动
+// Homepage API - Get all active events
 app.get('/api/events', async (req, res) => {
     try {
         const events = await db.getEvents();
@@ -29,15 +29,15 @@ app.get('/api/events', async (req, res) => {
             count: events.length
         });
     } catch (error) {
-        console.error('获取活动列表失败:', error);
+        console.error('Failed to get event list:', error);
         res.status(500).json({
             success: false,
-            message: '获取活动数据失败'
+            message: 'Failed to get event data'
         });
     }
 });
 
-// 搜索活动API
+// Search events API
 app.get('/api/events/search', async (req, res) => {
     try {
         const { category, location, date } = req.query;
@@ -55,15 +55,15 @@ app.get('/api/events/search', async (req, res) => {
             criteria: criteria
         });
     } catch (error) {
-        console.error('搜索活动失败:', error);
+        console.error('Failed to search events:', error);
         res.status(500).json({
             success: false,
-            message: '搜索活动失败'
+            message: 'Failed to search events'
         });
     }
 });
 
-// 获取活动详情API
+// Get event details API
 app.get('/api/events/:id', async (req, res) => {
     try {
         const eventId = parseInt(req.params.id);
@@ -72,7 +72,7 @@ app.get('/api/events/:id', async (req, res) => {
         if (!event) {
             return res.status(404).json({
                 success: false,
-                message: '活动未找到'
+                message: 'Event not found'
             });
         }
         
@@ -81,15 +81,15 @@ app.get('/api/events/:id', async (req, res) => {
             data: event
         });
     } catch (error) {
-        console.error('获取活动详情失败:', error);
+        console.error('Failed to get event details:', error);
         res.status(500).json({
             success: false,
-            message: '获取活动详情失败'
+            message: 'Failed to get event details'
         });
     }
 });
 
-// 获取所有分类API
+// Get all categories API
 app.get('/api/categories', async (req, res) => {
     try {
         const categories = await db.getCategories();
@@ -98,26 +98,26 @@ app.get('/api/categories', async (req, res) => {
             data: categories
         });
     } catch (error) {
-        console.error('获取分类失败:', error);
+        console.error('Failed to get categories:', error);
         res.status(500).json({
             success: false,
-            message: '获取分类数据失败'
+            message: 'Failed to get category data'
         });
     }
 });
 
 // =============================================
-// 启动服务器
+// Start Server
 // =============================================
 
 app.listen(PORT, () => {
-    console.log(`🚀 慈善活动API服务器运行在 http://localhost:${PORT}`);
-    console.log(`📊 API端点:`);
-    console.log(`   GET /api/events           - 获取所有活动`);
-    console.log(`   GET /api/events/search    - 搜索活动`);
-    console.log(`   GET /api/events/:id       - 获取活动详情`);
-    console.log(`   GET /api/categories       - 获取所有分类`);
+    console.log(`🚀 Charity Events API Server running at http://localhost:${PORT}`);
+    console.log(`📊 API Endpoints:`);
+    console.log(`   GET /api/events           - Get all events`);
+    console.log(`   GET /api/events/search    - Search events`);
+    console.log(`   GET /api/events/:id       - Get event details`);
+    console.log(`   GET /api/categories       - Get all categories`);
 });
 
-// 导出app用于测试
+// Export app for testing
 module.exports = app;

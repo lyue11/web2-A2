@@ -1,4 +1,4 @@
-// 搜索页面JavaScript逻辑 - 增强版
+// Search Page JavaScript Logic - Enhanced Version
 
 let allEvents = [];
 let currentSearchType = 'keyword';
@@ -12,7 +12,7 @@ document.addEventListener('DOMContentLoaded', function() {
     loadAllEvents();
 });
 
-// 设置标签页切换
+// Set up tab switching
 function setupTabSwitching() {
     const tabs = document.querySelectorAll('.search-tab');
     
@@ -20,11 +20,11 @@ function setupTabSwitching() {
         tab.addEventListener('click', function() {
             const targetTab = this.getAttribute('data-tab');
             
-            // 更新活跃标签
+            // Update active tab
             tabs.forEach(t => t.classList.remove('active'));
             this.classList.add('active');
             
-            // 显示对应的内容
+            // Show corresponding content
             document.querySelectorAll('.search-content').forEach(content => {
                 content.classList.remove('active');
             });
@@ -32,7 +32,7 @@ function setupTabSwitching() {
             
             currentSearchType = targetTab;
             
-            // 清空另一个表单的内容
+            // Clear the other form's content
             if (targetTab === 'keyword') {
                 document.getElementById('search-form').reset();
             } else {
@@ -42,7 +42,7 @@ function setupTabSwitching() {
     });
 }
 
-// 设置防抖搜索
+// Set up debounced search
 function setupDebouncedSearch() {
     const keywordInput = document.getElementById('keyword');
     const debouncedSearch = debounce(function(event) {
@@ -50,7 +50,7 @@ function setupDebouncedSearch() {
         if (keyword.length >= 2) {
             performKeywordSearch(keyword);
         } else if (keyword.length === 0) {
-            // 清空搜索时显示所有活动
+            // Show all events when search is cleared
             showAllEvents();
         }
     }, 500);
@@ -58,32 +58,32 @@ function setupDebouncedSearch() {
     keywordInput.addEventListener('input', debouncedSearch);
 }
 
-// 加载所有活动数据
+// Load all event data
 async function loadAllEvents() {
     try {
         showElement('search-loading');
-        updateSearchStats('正在加载活动数据...');
+        updateSearchStats('Loading event data...');
         
         const result = await apiCall(`${API_BASE_URL}/events`);
         
         if (result.success) {
             allEvents = result.data;
-            updateSearchStats(`已加载 ${allEvents.length} 个活动`);
+            updateSearchStats(`Loaded ${allEvents.length} events`);
             updateResultsCount(allEvents.length);
             displaySearchResults(allEvents);
         } else {
-            throw new Error('数据加载失败');
+            throw new Error('Data loading failed');
         }
     } catch (error) {
-        console.error('加载活动数据失败:', error);
-        updateSearchStats('活动数据加载失败');
-        showError('search-error', `数据加载失败: ${error.message}`);
+        console.error('Failed to load event data:', error);
+        updateSearchStats('Event data loading failed');
+        showError('search-error', `Data loading failed: ${error.message}`);
     } finally {
         hideElement('search-loading');
     }
 }
 
-// 加载分类选项
+// Load category options
 async function loadCategories() {
     try {
         const result = await apiCall(`${API_BASE_URL}/categories`);
@@ -92,16 +92,16 @@ async function loadCategories() {
             populateCategorySelect(result.data);
         }
     } catch (error) {
-        console.error('加载分类失败:', error);
-        showError('search-error', `分类数据加载失败: ${error.message}`);
+        console.error('Failed to load categories:', error);
+        showError('search-error', `Category data loading failed: ${error.message}`);
     }
 }
 
-// 填充分类下拉菜单
+// Populate category dropdown
 function populateCategorySelect(categories) {
     const categorySelect = document.getElementById('category');
     
-    // 清空现有选项（除了"所有类别"）
+    // Clear existing options (except "All Categories")
     while (categorySelect.children.length > 1) {
         categorySelect.removeChild(categorySelect.lastChild);
     }
@@ -114,7 +114,7 @@ function populateCategorySelect(categories) {
     });
 }
 
-// 设置事件监听器
+// Set up event listeners
 function setupEventListeners() {
     const searchForm = document.getElementById('search-form');
     const keywordSearchForm = document.getElementById('keyword-search-form');
@@ -128,7 +128,7 @@ function setupEventListeners() {
     showUpcomingBtn.addEventListener('click', showUpcomingEvents);
     showAllBtn.addEventListener('click', showAllEvents);
     
-    // 实时表单变化监听
+    // Real-time form change listeners
     document.getElementById('category').addEventListener('change', handleFormChange);
     document.getElementById('location').addEventListener('input', debounce(handleFormChange, 300));
     document.getElementById('date').addEventListener('change', handleFormChange);
@@ -143,35 +143,35 @@ function handleFormChange() {
             date: formData.get('date')
         };
         
-        // 只有当有实际筛选条件时才搜索
+        // Only search when there are actual filter criteria
         if (criteria.category || criteria.location || criteria.date) {
             performAdvancedSearch(criteria);
         }
     }
 }
 
-// 处理关键词搜索
+// Handle keyword search
 async function handleKeywordSearch(event) {
     event.preventDefault();
     
     const keyword = document.getElementById('keyword').value.trim();
     
     if (!keyword) {
-        alert('请输入搜索关键词');
+        alert('Please enter a search keyword');
         return;
     }
     
     await performKeywordSearch(keyword);
 }
 
-// 执行关键词搜索
+// Perform keyword search
 async function performKeywordSearch(keyword) {
     try {
         showElement('search-loading');
         hideElement('search-error');
         hideElement('no-results');
         
-        // 在前端进行关键词过滤
+        // Perform keyword filtering on the frontend
         const filteredEvents = allEvents.filter(event => 
             event.title.toLowerCase().includes(keyword.toLowerCase()) ||
             event.description.toLowerCase().includes(keyword.toLowerCase()) ||
@@ -179,19 +179,19 @@ async function performKeywordSearch(keyword) {
             event.location.toLowerCase().includes(keyword.toLowerCase())
         );
         
-        updateSearchStats(`找到 ${filteredEvents.length} 个包含"${keyword}"的活动`);
+        updateSearchStats(`Found ${filteredEvents.length} events containing "${keyword}"`);
         updateResultsCount(filteredEvents.length);
         displaySearchResults(filteredEvents);
         
     } catch (error) {
-        console.error('关键词搜索失败:', error);
-        showError('search-error', `搜索失败: ${error.message}`);
+        console.error('Keyword search failed:', error);
+        showError('search-error', `Search failed: ${error.message}`);
     } finally {
         hideElement('search-loading');
     }
 }
 
-// 处理高级搜索
+// Handle advanced search
 async function handleAdvancedSearch(event) {
     event.preventDefault();
     
@@ -205,14 +205,14 @@ async function handleAdvancedSearch(event) {
     await performAdvancedSearch(searchCriteria);
 }
 
-// 执行高级搜索
+// Perform advanced search
 async function performAdvancedSearch(criteria) {
     try {
         showElement('search-loading');
         hideElement('search-error');
         hideElement('no-results');
         
-        // 构建查询参数
+        // Build query parameters
         const params = new URLSearchParams();
         if (criteria.category) params.append('category', criteria.category);
         if (criteria.location) params.append('location', criteria.location);
@@ -221,24 +221,24 @@ async function performAdvancedSearch(criteria) {
         const result = await apiCall(`${API_BASE_URL}/events/search?${params}`);
         
         let criteriaText = [];
-        if (criteria.category) criteriaText.push(`类别: ${criteria.category}`);
-        if (criteria.location) criteriaText.push(`地点: ${criteria.location}`);
-        if (criteria.date) criteriaText.push(`日期: ${formatDate(criteria.date)}`);
+        if (criteria.category) criteriaText.push(`Category: ${criteria.category}`);
+        if (criteria.location) criteriaText.push(`Location: ${criteria.location}`);
+        if (criteria.date) criteriaText.push(`Date: ${formatDate(criteria.date)}`);
         
         const criteriaString = criteriaText.length > 0 ? ` (${criteriaText.join(', ')})` : '';
-        updateSearchStats(`找到 ${result.data.length} 个活动${criteriaString}`);
+        updateSearchStats(`Found ${result.data.length} events${criteriaString}`);
         updateResultsCount(result.data.length);
         displaySearchResults(result.data);
         
     } catch (error) {
-        console.error('高级搜索失败:', error);
-        showError('search-error', `搜索失败: ${error.message}`);
+        console.error('Advanced search failed:', error);
+        showError('search-error', `Search failed: ${error.message}`);
     } finally {
         hideElement('search-loading');
     }
 }
 
-// 显示所有未发生活动
+// Show all upcoming events
 async function showUpcomingEvents() {
     try {
         showElement('search-loading');
@@ -251,38 +251,38 @@ async function showUpcomingEvents() {
             event.event_date >= today && event.is_active
         );
         
-        updateSearchStats(`找到 ${upcomingEvents.length} 个未发生活动`);
+        updateSearchStats(`Found ${upcomingEvents.length} upcoming events`);
         updateResultsCount(upcomingEvents.length);
         displaySearchResults(upcomingEvents);
         
     } catch (error) {
-        console.error('获取未发生活动失败:', error);
-        showError('search-error', `获取失败: ${error.message}`);
+        console.error('Failed to get upcoming events:', error);
+        showError('search-error', `Failed to retrieve: ${error.message}`);
     } finally {
         hideElement('search-loading');
     }
 }
 
-// 显示所有活动
+// Show all events
 async function showAllEvents() {
     try {
         showElement('search-loading');
         hideElement('search-error');
         hideElement('no-results');
         
-        updateSearchStats(`显示所有 ${allEvents.length} 个活动`);
+        updateSearchStats(`Showing all ${allEvents.length} events`);
         updateResultsCount(allEvents.length);
         displaySearchResults(allEvents);
         
     } catch (error) {
-        console.error('获取所有活动失败:', error);
-        showError('search-error', `获取失败: ${error.message}`);
+        console.error('Failed to get all events:', error);
+        showError('search-error', `Failed to retrieve: ${error.message}`);
     } finally {
         hideElement('search-loading');
     }
 }
 
-// 显示搜索结果
+// Display search results
 function displaySearchResults(events) {
     const container = document.getElementById('search-results');
     const noResults = document.getElementById('no-results');
@@ -316,10 +316,10 @@ function displaySearchResults(events) {
                 <div class="event-category">${event.category_name}</div>
                 <p class="event-description">${event.description}</p>
                 <div class="event-meta">
-                    <span>🎯 目标: $${event.fundraising_goal?.toLocaleString() || '0'}</span>
-                    <span>💰 已筹: $${event.current_amount?.toLocaleString() || '0'}</span>
+                    <span>🎯 Goal: $${event.fundraising_goal?.toLocaleString() || '0'}</span>
+                    <span>💰 Raised: $${event.current_amount?.toLocaleString() || '0'}</span>
                 </div>
-                <a href="#" class="event-details-link" onclick="goToEventDetails(${event.id}); return false;">查看详情</a>
+                <a href="#" class="event-details-link" onclick="goToEventDetails(${event.id}); return false;">View Details</a>
             </div>
         </div>
         `;
@@ -328,21 +328,21 @@ function displaySearchResults(events) {
     container.innerHTML = eventsHTML;
 }
 
-// 清除筛选条件
+// Clear filter conditions
 function clearFilters() {
     document.getElementById('search-form').reset();
     document.getElementById('keyword').value = '';
     document.getElementById('search-results').innerHTML = '';
     hideElement('no-results');
     hideElement('search-error');
-    updateSearchStats('筛选条件已清除');
+    updateSearchStats('Filter conditions cleared');
     updateResultsCount(0);
     
-    // 重置后显示所有活动
+    // Show all events after reset
     showAllEvents();
 }
 
-// 更新搜索统计信息
+// Update search statistics
 function updateSearchStats(text) {
     const statsElement = document.getElementById('search-stats-text');
     if (statsElement) {
@@ -350,27 +350,27 @@ function updateSearchStats(text) {
     }
 }
 
-// 更新结果计数
+// Update results count
 function updateResultsCount(count) {
     const countElement = document.getElementById('results-count');
     if (countElement) {
-        countElement.textContent = `${count} 个结果`;
+        countElement.textContent = `${count} results`;
     }
 }
 
-// 活动状态判断函数
+// Event status determination function
 function getEventStatus(event) {
     const eventDate = new Date(event.event_date);
     const today = new Date();
     today.setHours(0, 0, 0, 0);
     
     if (eventDate < today) {
-        return { text: '已结束', style: 'background: #7f8c8d; color: white;' };
+        return { text: 'Ended', style: 'background: #7f8c8d; color: white;' };
     } else if (eventDate.getTime() === today.getTime()) {
-        return { text: '今天', style: 'background: #e74c3c; color: white;' };
+        return { text: 'Today', style: 'background: #e74c3c; color: white;' };
     } else if ((eventDate - today) / (1000 * 60 * 60 * 24) <= 7) {
-        return { text: '即将开始', style: 'background: #f39c12; color: white;' };
+        return { text: 'Coming Soon', style: 'background: #f39c12; color: white;' };
     } else {
-        return { text: '即将开始', style: 'background: #27ae60; color: white;' };
+        return { text: 'Upcoming', style: 'background: #27ae60; color: white;' };
     }
 }

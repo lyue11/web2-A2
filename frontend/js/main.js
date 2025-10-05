@@ -1,9 +1,9 @@
-// 通用工具函数 - 增强版
+// General Utility Functions - Enhanced Version
 
-// API基础URL
+// API Base URL
 const API_BASE_URL = 'http://localhost:3000/api';
 
-// 增强的API调用函数
+// Enhanced API call function
 async function apiCall(url, options = {}) {
     try {
         const response = await fetch(url, {
@@ -20,19 +20,19 @@ async function apiCall(url, options = {}) {
         
         return await response.json();
     } catch (error) {
-        console.error('API调用失败:', error);
-        throw new Error(`网络错误: ${error.message}`);
+        console.error('API call failed:', error);
+        throw new Error(`Network error: ${error.message}`);
     }
 }
 
-// 显示错误信息
+// Display error message
 function showError(containerId, message) {
     const container = document.getElementById(containerId);
     container.innerHTML = `<div class="error-message">${message}</div>`;
     container.style.display = 'block';
 }
 
-// 隐藏元素
+// Hide element
 function hideElement(id) {
     const element = document.getElementById(id);
     if (element) {
@@ -40,7 +40,7 @@ function hideElement(id) {
     }
 }
 
-// 显示元素
+// Show element
 function showElement(id) {
     const element = document.getElementById(id);
     if (element) {
@@ -48,50 +48,50 @@ function showElement(id) {
     }
 }
 
-// 格式化日期
+// Format date
 function formatDate(dateString) {
     try {
         const options = { year: 'numeric', month: 'long', day: 'numeric' };
-        return new Date(dateString).toLocaleDateString('zh-CN', options);
+        return new Date(dateString).toLocaleDateString('en-US', options);
     } catch (error) {
-        console.error('日期格式化错误:', error);
+        console.error('Date formatting error:', error);
         return dateString;
     }
 }
 
-// 格式化时间
+// Format time
 function formatTime(timeString) {
-    if (!timeString) return '时间待定';
+    if (!timeString) return 'Time to be determined';
     try {
-        return timeString.substring(0, 5); // 只显示小时和分钟
+        return timeString.substring(0, 5); // Only show hours and minutes
     } catch (error) {
         return timeString;
     }
 }
 
-// 跳转到活动详情页
+// Navigate to event details page
 function goToEventDetails(eventId) {
     window.location.href = `event-details.html?id=${eventId}`;
 }
 
-// 获取URL参数
+// Get URL parameter
 function getUrlParameter(name) {
     const urlParams = new URLSearchParams(window.location.search);
     return urlParams.get(name);
 }
 
-// 图片加载失败处理
+// Image loading error handling
 function setupImageErrorHandling() {
     document.addEventListener('error', function(e) {
         if (e.target.tagName === 'IMG' && !e.target.hasAttribute('data-error-handled')) {
             e.target.src = '/images/placeholder.jpg';
-            e.target.alt = '图片加载失败';
+            e.target.alt = 'Image failed to load';
             e.target.setAttribute('data-error-handled', 'true');
         }
     }, true);
 }
 
-// 检查API连接
+// Check API connection
 async function checkAPIConnection() {
     try {
         const response = await fetch(`${API_BASE_URL}/events`);
@@ -101,7 +101,7 @@ async function checkAPIConnection() {
     }
 }
 
-// 防抖函数
+// Debounce function
 function debounce(func, wait) {
     let timeout;
     return function executedFunction(...args) {
@@ -114,8 +114,8 @@ function debounce(func, wait) {
     };
 }
 
-// 初始化通用功能
+// Initialize general functionality
 document.addEventListener('DOMContentLoaded', function() {
     setupImageErrorHandling();
-    console.log('CharityHub - 慈善活动平台已加载');
+    console.log('CharityHub - Charity Events Platform loaded');
 });

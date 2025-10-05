@@ -1,4 +1,4 @@
-// 首页JavaScript逻辑 - 增强版
+// Home Page JavaScript Logic - Enhanced Version
 
 let currentEvents = [];
 
@@ -19,12 +19,12 @@ async function loadEvents() {
             displayEvents(currentEvents);
             updateRealTimeStats(currentEvents);
         } else {
-            showError('events-container', '暂无活动数据，请稍后刷新重试');
+            showError('events-container', 'No event data available, please refresh and try again later');
         }
         
     } catch (error) {
-        console.error('加载活动失败:', error);
-        showError('events-error', `加载失败: ${error.message}`);
+        console.error('Failed to load events:', error);
+        showError('events-error', `Load failed: ${error.message}`);
     } finally {
         hideElement('events-loading');
     }
@@ -53,10 +53,10 @@ function displayEvents(events) {
                 <div class="event-category">${event.category_name}</div>
                 <p class="event-description">${event.description}</p>
                 <div class="event-meta">
-                    <span>🎯 目标: $${event.fundraising_goal?.toLocaleString() || '0'}</span>
-                    <span>💰 已筹: $${event.current_amount?.toLocaleString() || '0'}</span>
+                    <span>🎯 Goal: $${event.fundraising_goal?.toLocaleString() || '0'}</span>
+                    <span>💰 Raised: $${event.current_amount?.toLocaleString() || '0'}</span>
                 </div>
-                <a href="#" class="event-details-link" onclick="goToEventDetails(${event.id}); return false;">查看详情</a>
+                <a href="#" class="event-details-link" onclick="goToEventDetails(${event.id}); return false;">View Details</a>
             </div>
         </div>
         `;
@@ -71,23 +71,23 @@ function getEventStatus(event) {
     today.setHours(0, 0, 0, 0);
     
     if (eventDate < today) {
-        return { text: '已结束', style: 'background: #7f8c8d; color: white;' };
+        return { text: 'Ended', style: 'background: #7f8c8d; color: white;' };
     } else if (eventDate.getTime() === today.getTime()) {
-        return { text: '今天', style: 'background: #e74c3c; color: white;' };
+        return { text: 'Today', style: 'background: #e74c3c; color: white;' };
     } else if ((eventDate - today) / (1000 * 60 * 60 * 24) <= 7) {
-        return { text: '即将开始', style: 'background: #f39c12; color: white;' };
+        return { text: 'Coming Soon', style: 'background: #f39c12; color: white;' };
     } else {
-        return { text: '即将开始', style: 'background: #27ae60; color: white;' };
+        return { text: 'Upcoming', style: 'background: #27ae60; color: white;' };
     }
 }
 
 function setupRealTimeStats() {
-    // 可以添加实时统计更新功能
+    // Can add real-time statistics update functionality
     setInterval(() => {
         if (currentEvents.length > 0) {
             updateRealTimeStats(currentEvents);
         }
-    }, 30000); // 每30秒更新一次
+    }, 30000); // Update every 30 seconds
 }
 
 function updateRealTimeStats(events) {
@@ -95,11 +95,11 @@ function updateRealTimeStats(events) {
     const totalGoal = events.reduce((sum, event) => sum + (parseFloat(event.fundraising_goal) || 0), 0);
     const upcomingEvents = events.filter(event => new Date(event.event_date) >= new Date()).length;
     
-    // 可以在这里更新页面上的实时统计信息
-    console.log(`实时统计 - 总筹款: $${totalRaised.toLocaleString()}, 即将开始活动: ${upcomingEvents}个`);
+    // Can update real-time statistics on the page here
+    console.log(`Real-time Stats - Total Raised: $${totalRaised.toLocaleString()}, Upcoming Events: ${upcomingEvents}`);
 }
 
-// 添加页面可见性检测，当页面重新获得焦点时刷新数据
+// Add page visibility detection to refresh data when page regains focus
 document.addEventListener('visibilitychange', function() {
     if (!document.hidden) {
         loadEvents();
