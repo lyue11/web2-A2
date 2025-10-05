@@ -1,13 +1,13 @@
 <!DOCTYPE html>
-<html lang="zh">
+<html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>活动详情 - CharityHub</title>
+    <title>Event Details - CharityHub</title>
     <link rel="stylesheet" href="css/style.css">
     <link rel="stylesheet" href="css/event-details.css">
     
-    <!-- Favicon 设置 -->
+    <!-- Favicon Settings -->
     <link rel="icon" type="image/x-icon" href="images/favicon.ico">
     <link rel="icon" type="image/png" sizes="32x32" href="images/favicon-32x32.png">
     <link rel="apple-touch-icon" sizes="180x180" href="images/favicon-32x32.png">
@@ -17,11 +17,9 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@700&family=Pacifico&family=Playfair+Display:wght@700&family=Sacramento&display=swap" rel="stylesheet">
-    
-    
 </head>
 <body>
-    <!-- 导航菜单 -->
+    <!-- Navigation Menu -->
     <nav class="navbar">
         <div class="nav-container">
             <h1 class="nav-logo">
@@ -29,22 +27,22 @@
                 CharityHub
             </h1>
             <ul class="nav-menu">
-                <li><a href="index.html" class="nav-link">首页</a></li>
-                <li><a href="search.html" class="nav-link">搜索活动</a></li>
+                <li><a href="index.html" class="nav-link">Home</a></li>
+                <li><a href="search.html" class="nav-link">Search Events</a></li>
             </ul>
         </div>
     </nav>
 
-    <!-- 主要内容区域 -->
+    <!-- Main Content Area -->
     <main class="main-content">
-        <a href="javascript:history.back()" class="back-link">← 返回上一页</a>
+        <a href="javascript:history.back()" class="back-link">← Back to Previous Page</a>
         
-        <div id="event-loading" class="loading">加载活动详情...</div>
+        <div id="event-loading" class="loading">Loading event details...</div>
         
         <div id="event-error" class="error-message" style="display: none;"></div>
         
         <div id="event-detail-container" class="event-detail-container" style="display: none;">
-            <img id="event-hero-image" src="" alt="活动图片" class="event-hero-image">
+            <img id="event-hero-image" src="" alt="Event Image" class="event-hero-image">
             
             <div class="event-detail-content">
                 <div class="event-header">
@@ -78,36 +76,36 @@
                 </div>
                 
                 <div class="fundraising-section">
-                    <h3>筹款进度</h3>
+                    <h3>Fundraising Progress</h3>
                     <div class="progress-bar">
                         <div id="progress-fill" class="progress-fill"></div>
                     </div>
                     <div class="progress-text">
-                        <span>已筹集: $<span id="current-amount">0</span></span>
-                        <span>目标: $<span id="fundraising-goal">0</span></span>
+                        <span>Raised: $<span id="current-amount">0</span></span>
+                        <span>Goal: $<span id="fundraising-goal">0</span></span>
                     </div>
                     <div id="progress-percentage" style="text-align: center; font-weight: bold; margin-top: 0.5rem;"></div>
                 </div>
                 
                 <div class="full-description">
-                    <h3>活动详情</h3>
+                    <h3>Event Details</h3>
                     <p id="event-full-description"></p>
                     <p id="event-venue-details" style="margin-top: 1rem;"></p>
                 </div>
                 
                 <div id="organization-card" class="organization-card" style="display: none;">
-                    <h3>关于组织者</h3>
+                    <h3>About the Organizer</h3>
                     <div class="organization-info">
                         <div class="org-info-item">
-                            <span class="org-info-label">组织名称</span>
+                            <span class="org-info-label">Organization Name</span>
                             <span class="org-info-value" id="org-name"></span>
                         </div>
                         <div class="org-info-item">
-                            <span class="org-info-label">使命宣言</span>
+                            <span class="org-info-label">Mission Statement</span>
                             <span class="org-info-value" id="org-mission"></span>
                         </div>
                         <div class="org-info-item">
-                            <span class="org-info-label">联系方式</span>
+                            <span class="org-info-label">Contact Information</span>
                             <span class="org-info-value" id="org-contact"></span>
                         </div>
                     </div>
@@ -115,16 +113,16 @@
                 </div>
                 
                 <div class="register-section">
-                    <button id="register-btn" class="register-btn">立即报名参加</button>
+                    <button id="register-btn" class="register-btn">Register Now</button>
                 </div>
             </div>
         </div>
         
-        <!-- 相关活动推荐 -->
+        <!-- Related Events Recommendation -->
         <div class="related-events">
-            <h3>您可能也感兴趣的活动</h3>
+            <h3>You Might Also Be Interested In</h3>
             <div id="related-events-container" class="related-events-grid">
-                <!-- 相关活动将通过JavaScript动态加载 -->
+                <!-- Related events will be dynamically loaded via JavaScript -->
             </div>
         </div>
     </main>
@@ -133,9 +131,9 @@
     <script src="js/event-details.js"></script>
     
     <script>
-        // 增强的详情页功能
+        // Enhanced event details functionality
         document.addEventListener('DOMContentLoaded', function() {
-            // 设置返回按钮功能
+            // Set up back button functionality
             const backLink = document.querySelector('.back-link');
             backLink.addEventListener('click', function() {
                 if (document.referrer && document.referrer.includes(window.location.hostname)) {
@@ -145,12 +143,12 @@
                 }
             });
             
-            // 加载活动详情
+            // Load event details
             loadEventDetails();
             setupRegisterButton();
         });
 
-        // 加载活动详情
+        // Load event details
         async function loadEventDetails() {
             try {
                 showElement('event-loading');
@@ -158,61 +156,61 @@
                 hideElement('event-detail-container');
                 hideElement('organization-card');
                 
-                // 从URL获取活动ID
+                // Get event ID from URL
                 const urlParams = new URLSearchParams(window.location.search);
                 const eventId = urlParams.get('id');
                 
                 if (!eventId) {
-                    throw new Error('未指定活动ID');
+                    throw new Error('No event ID specified');
                 }
                 
                 const response = await fetch(`${API_BASE_URL}/events/${eventId}`);
                 const result = await response.json();
                 
                 if (!response.ok) {
-                    throw new Error(result.message || '获取活动详情失败');
+                    throw new Error(result.message || 'Failed to fetch event details');
                 }
                 
                 if (result.success) {
                     displayEventDetails(result.data);
-                    // 加载相关活动
+                    // Load related events
                     loadRelatedEvents(result.data.category_id, eventId);
                 } else {
-                    throw new Error('活动数据加载失败');
+                    throw new Error('Failed to load event data');
                 }
                 
             } catch (error) {
-                console.error('加载活动详情失败:', error);
-                showError('event-error', `加载失败: ${error.message}`);
+                console.error('Failed to load event details:', error);
+                showError('event-error', `Loading failed: ${error.message}`);
             } finally {
                 hideElement('event-loading');
             }
         }
 
-        // 显示活动详情
+        // Display event details
         function displayEventDetails(event) {
-            // 设置基本信息
+            // Set basic information
             document.getElementById('event-title').textContent = event.title;
             document.getElementById('event-category').textContent = event.category_name;
             document.getElementById('event-date').textContent = formatDate(event.event_date);
-            document.getElementById('event-time').textContent = event.event_time || '时间待定';
+            document.getElementById('event-time').textContent = event.event_time || 'Time to be confirmed';
             document.getElementById('event-location').textContent = event.location;
             document.getElementById('event-organisation').textContent = event.organisation_name;
             
-            // 设置票务信息
+            // Set ticket information
             const priceElement = document.getElementById('event-price');
             if (event.is_free) {
-                priceElement.textContent = '免费活动';
+                priceElement.textContent = 'Free Event';
             } else {
                 priceElement.textContent = `$${event.ticket_price}`;
             }
             
-            // 设置图片
+            // Set image
             const heroImage = document.getElementById('event-hero-image');
             heroImage.src = event.image_url;
             heroImage.alt = event.title;
             
-            // 设置筹款进度
+            // Set fundraising progress
             const goal = parseFloat(event.fundraising_goal) || 0;
             const current = parseFloat(event.current_amount) || 0;
             const percentage = goal > 0 ? Math.min((current / goal) * 100, 100) : 0;
@@ -222,56 +220,56 @@
             document.getElementById('progress-fill').style.width = `${percentage}%`;
             document.getElementById('progress-percentage').textContent = `${percentage.toFixed(1)}%`;
             
-            // 设置描述
+            // Set description
             document.getElementById('event-full-description').textContent = event.full_description || event.description;
             
             if (event.venue_details) {
-                document.getElementById('event-venue-details').textContent = `场地详情: ${event.venue_details}`;
+                document.getElementById('event-venue-details').textContent = `Venue Details: ${event.venue_details}`;
             }
             
-            // 显示组织者信息
+            // Display organizer information
             if (event.organisation_name) {
                 document.getElementById('org-name').textContent = event.organisation_name;
-                document.getElementById('org-mission').textContent = event.organisation_mission || '致力于创造积极的社会影响';
-                document.getElementById('org-contact').textContent = event.organisation_contact || '请联系活动组织者获取更多信息';
-                document.getElementById('org-description').textContent = event.organisation_description || '一个致力于社会公益的慈善组织。';
+                document.getElementById('org-mission').textContent = event.organisation_mission || 'Dedicated to creating positive social impact';
+                document.getElementById('org-contact').textContent = event.organisation_contact || 'Please contact the event organizer for more information';
+                document.getElementById('org-description').textContent = event.organisation_description || 'A charitable organization dedicated to social welfare.';
                 showElement('organization-card');
             }
             
-            // 显示详情容器
+            // Display detail container
             showElement('event-detail-container');
             
-            // 更新页面标题
+            // Update page title
             document.title = `${event.title} - CharityHub`;
         }
 
-        // 加载相关活动
+        // Load related events
         async function loadRelatedEvents(categoryId, currentEventId) {
             try {
                 const response = await fetch(`${API_BASE_URL}/events`);
                 const result = await response.json();
                 
                 if (result.success) {
-                    // 过滤出同类别且不是当前活动的其他活动
+                    // Filter out events of the same category that are not the current event
                     const relatedEvents = result.data.filter(event => 
                         event.category_id === categoryId && 
                         event.id !== parseInt(currentEventId) &&
                         event.is_active === true
-                    ).slice(0, 3); // 只显示最多3个相关活动
+                    ).slice(0, 3); // Show maximum 3 related events
                     
                     displayRelatedEvents(relatedEvents);
                 }
             } catch (error) {
-                console.error('加载相关活动失败:', error);
+                console.error('Failed to load related events:', error);
             }
         }
 
-        // 显示相关活动
+        // Display related events
         function displayRelatedEvents(events) {
             const container = document.getElementById('related-events-container');
             
             if (events.length === 0) {
-                container.innerHTML = '<p style="text-align: center; width: 100%; color: #666;">暂无相关活动推荐</p>';
+                container.innerHTML = '<p style="text-align: center; width: 100%; color: #666;">No related events recommended at the moment</p>';
                 return;
             }
             
@@ -292,11 +290,11 @@
             container.innerHTML = eventsHTML;
         }
 
-        // 设置注册按钮
+        // Set up register button
         function setupRegisterButton() {
             const registerBtn = document.getElementById('register-btn');
             registerBtn.addEventListener('click', function() {
-                alert('此功能目前正在建设中。');
+                alert('This feature is currently under construction.');
             });
         }
     </script>
