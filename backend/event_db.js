@@ -9,7 +9,7 @@ const mysql = require('mysql2');
 const pool = mysql.createPool({
     host: 'localhost',
     user: 'root',
-    password: '',  // XAMPP default empty password (Important modification!)
+    password: '',  // XAMPP default empty password 
     database: 'charityevents_db',
     waitForConnections: true,
     connectionLimit: 10,
